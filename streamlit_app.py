@@ -37,11 +37,15 @@ gpa = st.slider("GPA", min_value=0.0, max_value=4.0, step=0.01)
 num_skills = st.number_input("Number of Skills", min_value=0)
 skills = st.multiselect("Skills", options=students_data.columns[10:])  # Assuming skills start from the 11th column
 
+# Add a dropdown for Graduated
+graduated = st.selectbox("Graduated", options=['Yes', 'No'])
+
 # Prepare the input data
 input_data = {feature: 0 for feature in features}
 input_data[f"Major_{major}"] = 1
 input_data["GPA"] = gpa
 input_data["Number_of_Skills"] = num_skills
+input_data[f"Graduated_{graduated}"] = 1
 for skill in skills:
     if skill in input_data:
         input_data[skill] = 1
