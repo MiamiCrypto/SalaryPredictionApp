@@ -27,6 +27,9 @@ def get_top_suggestions(features, importances, num_suggestions=5):
 # Streamlit Application
 st.title("Student Salary Prediction")
 
+# Display an image from a file
+st.image("image.png", width=300, caption="Predict your future Salary")
+
 # Input Form
 st.header("Enter Student Details for Salary Prediction")
 major = st.selectbox("Major", options=students_data['Major'].unique())
