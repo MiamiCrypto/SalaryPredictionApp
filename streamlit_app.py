@@ -35,7 +35,7 @@ st.header("Enter Student Details for Salary Prediction")
 major = st.selectbox("Major", options=students_data['Major'].unique())
 gpa = st.slider("GPA", min_value=0.0, max_value=4.0, step=0.01)
 num_skills = st.number_input("Number of Skills", min_value=0)
-skills = st.multiselect("Skills", options=students_data.columns[10:])  # Assuming skills start from the 11th column
+skills = st.multiselect("Skills", options=[col for col in students_data.columns[10:] if "Graduated" not in col])  # Ensure Graduated is not in skills
 
 # Add a dropdown for Graduated
 graduated = st.selectbox("Graduated", options=['Yes', 'No'])
@@ -45,10 +45,11 @@ input_data = {feature: 0 for feature in features}
 input_data[f"Major_{major}"] = 1
 input_data["GPA"] = gpa
 input_data["Number_of_Skills"] = num_skills
-input_data[f"Graduated_{graduated}"] = 1
+input_data[f"Graduated_{graduated}"] = 1 if graduated == 'Yes' else 0  # Correctly handle Graduated
 for skill in skills:
-    if skill in input_data:
-        input_data[skill] = 1
+    skill_col = f'Skills_{skill}' if f'Skills_{skill}' in input_data else skill
+    if skill_col in input_data:
+        input_data[skill_col] = 1
 input_df = pd.DataFrame([input_data])
 
 # Ensure input_df has all the necessary columns
