@@ -47,6 +47,12 @@ for skill in skills:
         input_data[skill] = 1
 input_df = pd.DataFrame([input_data])
 
+# Ensure input_df has all the necessary columns
+missing_cols = set(features) - set(input_df.columns)
+for col in missing_cols:
+    input_df[col] = 0
+input_df = input_df[features]
+
 # Predict Salary
 if st.button("Predict Salary"):
     predicted_salary = model.predict(input_df)[0]
@@ -66,6 +72,12 @@ uploaded_file = st.file_uploader("Upload CSV File", type=["csv"])
 if uploaded_file is not None:
     batch_data = pd.read_csv(uploaded_file)
     batch_data_encoded = pd.get_dummies(batch_data, drop_first=True)
+    # Ensure batch_data_encoded has all the necessary columns
+    missing_cols_batch = set(features) - set(batch_data_encoded.columns)
+    for col in missing_cols_batch:
+        batch_data_encoded[col] = 0
+    batch_data_encoded = batch_data_encoded[features]
+    
     predictions = model.predict(batch_data_encoded)
     batch_data['Predicted_Salary'] = predictions
     st.write("Batch Predictions:")
