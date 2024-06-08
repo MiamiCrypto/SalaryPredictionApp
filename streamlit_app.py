@@ -35,7 +35,7 @@ st.header("Enter Student Details for Salary Prediction")
 major = st.selectbox("Major", options=students_data['Major'].unique())
 gpa = st.slider("GPA", min_value=0.0, max_value=4.0, step=0.01)
 num_skills = st.number_input("Number of Skills", min_value=0)
-skills = st.multiselect("Skills", options=students_data.columns[10:])  # Assuming skills start from the 11th column
+skills = st.multiselect("Features", options=students_data.columns[10:])  # Assuming skills start from the 11th column
 
 # Prepare the input data
 input_data = {feature: 0 for feature in features}
