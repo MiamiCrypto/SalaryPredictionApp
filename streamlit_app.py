@@ -35,7 +35,7 @@ st.header("Enter Student Details for Salary Prediction")
 major = st.selectbox("Major", options=students_data['Major'].unique())
 gpa = st.slider("GPA", min_value=0.0, max_value=4.0, step=0.01)
 num_skills = st.number_input("Number of Skills", min_value=0)
-skills = st.multiselect("Features", options=students_data.columns[10:])  # Assuming skills start from the 11th column
+skills = st.multiselect("Skills", options=students_data.columns[10:])  # Assuming skills start from the 11th column
 
 # Prepare the input data
 input_data = {feature: 0 for feature in features}
@@ -74,7 +74,7 @@ if uploaded_file is not None:
 
 # Feature Importance Visualization
 st.header("Feature Importance")
-feature_importance_df = pd.DataFrame({'Feature': features, 'Importance': feature_importances}).sort_values(by='Importance', ascending=False)
+feature_importance_df = pd.DataFrame({'Feature': features, 'Importance': model.feature_importances_}).sort_values(by='Importance', ascending=False)
 st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
 
 # Model Performance Metrics
@@ -85,9 +85,3 @@ r2_tuned = 0.975
 st.write(f"Mean Absolute Error (MAE): {mae_tuned:.2f}")
 st.write(f"Mean Squared Error (MSE): {mse_tuned:.2f}")
 st.write(f"R² Score: {r2_tuned:.2f}")
-
-# Image Upload
-st.header("Upload an Image")
-uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
-if uploaded_image is not None:
-    st.image(uploaded_image, caption='Uploaded Image.', use_column_width=True)
