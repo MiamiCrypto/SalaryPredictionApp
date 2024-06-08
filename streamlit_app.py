@@ -35,7 +35,7 @@ st.header("Enter Student Details for Salary Prediction")
 major = st.selectbox("Major", options=students_data['Major'].unique())
 gpa = st.slider("GPA", min_value=0.0, max_value=4.0, step=0.01)
 num_skills = st.number_input("Number of Skills", min_value=0)
-skills = st.multiselect("Skills", options=[col for col in students_data.columns[10:] if "Graduated" not in col])  # Ensure Graduated is not in skills
+skills = st.multiselect("Skills", options=students_data.columns[10:])  # Assuming skills start from the 11th column
 
 # Add a dropdown for Graduated
 graduated = st.selectbox("Graduated", options=['Yes', 'No'])
