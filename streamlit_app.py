@@ -11,7 +11,7 @@ with open(model_path, 'rb') as file:
     model = pickle.load(file)
 
 # Load the dataset for feature importance
-dataset_url = 'https://raw.githubusercontent.com/MiamiCrypto/Capstone-Project-/main/Students_With_Skills_Complete.csv'
+dataset_url = 'https://raw.githubusercontent.com/MiamiCrypto/SalaryPredictionApp/master/Students_With_Skills_Complete_Balanced.csv'
 students_data = pd.read_csv(dataset_url)
 students_data_encoded = pd.get_dummies(students_data, drop_first=True)
 exclude_columns = [col for col in students_data_encoded.columns if 'First_Name' in col or 'Email' in col]
