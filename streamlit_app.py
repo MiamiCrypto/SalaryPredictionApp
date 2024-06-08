@@ -28,7 +28,7 @@ def get_top_suggestions(features, importances, num_suggestions=5):
 st.title("Student Salary Prediction")
 
 # Display an image from a file
-st.image("image.png", width=300, caption="Predict your future Salary")
+st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
 # Input Form
 st.header("Enter Student Details for Salary Prediction")
