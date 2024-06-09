@@ -25,15 +25,19 @@ for skill in skills_list:
         skills_selected.append(skill)
 
 # Prepare the input data for prediction
-# Example of how you might encode skills
 skills_encoded = [1 if skill in skills_selected else 0 for skill in skills_list]
-
 input_data = pd.DataFrame([[gpa] + skills_encoded], columns=['GPA'] + skills_list)
+
+# Debug: Print the columns of the input data
+st.write("Input Data Columns:", input_data.columns.tolist())
 
 # Make prediction
 if st.button('Predict Salary'):
-    prediction = model.predict(input_data)
-    st.write(f'Predicted Salary: ${prediction[0]:,.2f}')
+    try:
+        prediction = model.predict(input_data)
+        st.write(f'Predicted Salary: ${prediction[0]:,.2f}')
+    except ValueError as e:
+        st.error(f"ValueError: {e}")
 
 # Additional notes
 st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
