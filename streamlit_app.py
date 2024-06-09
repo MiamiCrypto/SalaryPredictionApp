@@ -8,9 +8,9 @@ model_path = 'random_forest_model.pkl'
 with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
-# Features used during model training, removing 'Student_ID'
+# Features used during model training
 all_features = [
-    'Major', 'Number_of_Skills', 'Salary_Range', 'GPA',
+    'Student_ID', 'Major', 'Number_of_Skills', 'Salary_Range', 'GPA',
     'Graduated', 'Algorithm Development', 'Creativity',
     'AI Ethics and Governance', 'API Development', 'Curiosity',
     'Project Management', 'Business Acumen', 'Communication',
@@ -35,6 +35,9 @@ st.title('Student Salary Predictor')
 # Display the image centered
 st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
+# Student ID input (since it's required by the model)
+student_id = st.text_input('Student ID', '12345')
+
 # GPA input
 gpa = st.slider('GPA', 0.0, 4.0, 3.0)
 
@@ -48,10 +51,10 @@ salary_range = st.selectbox('Salary Range', ['30k-60k', '60k-90k', '90k-120k'])
 graduated = st.selectbox('Graduated', [True, False])
 
 # Skills input with a dropdown
-skills_selected = st.multiselect('Select Skills', all_features[5:45])
+skills_selected = st.multiselect('Select Skills', all_features[6:46])
 
 # Prepare the input data for prediction
-skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[5:45]]
+skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[6:46]]
 
 # Encode categorical variables (Salary Range and Graduated)
 salary_binned = [1 if salary_range == '30k-60k' else 0, 1 if salary_range == '60k-90k' else 0, 1 if salary_range == '90k-120k' else 0]
@@ -73,7 +76,7 @@ titles_encoded = [0]*10  # Example placeholder, should be based on actual logic
 # Add logic to set the appropriate title index to 1
 
 # Assemble all input data
-input_data_values = [major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + gpa_ranges + titles_encoded
+input_data_values = [student_id, major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + gpa_ranges + titles_encoded
 
 # Check the length of input data values and feature columns
 st.write("Length of input data values:", len(input_data_values))
@@ -82,9 +85,6 @@ st.write("Length of feature columns:", len(all_features))
 # Debug: Print the input data values and the feature list
 st.write("Input Data Values:", input_data_values)
 st.write("All Features:", all_features)
-
-# Remove the redundant true value to match the length
-input_data_values.pop(4)
 
 if len(input_data_values) == len(all_features):
     input_data = pd.DataFrame([input_data_values], columns=all_features)
