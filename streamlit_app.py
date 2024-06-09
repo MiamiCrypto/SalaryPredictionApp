@@ -4,33 +4,31 @@ import pandas as pd
 from PIL import Image
 
 # Load the model from the pickle file
-with open('random_forest_model.pkl', 'rb') as f:
+model_path = 'random_forest_model.pkl'
+with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
 # Title of the app
 st.title('Student Salary Predictor')
 
-# # Load and display the image centered
-# image = Image.open('salaryprediction.png')
-# st.image(image, use_column_width=True, caption="Centered Image")
-
-# Display an image from a file
+# Display the image centered
 st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
 # GPA input
 gpa = st.slider('GPA', 0.0, 4.0, 3.0)
 
-# Skills input
-skills = st.text_area('Skills (separated by commas)', 'Python, Data Analysis')
+# Skills input with checkboxes
+skills_list = ['Python', 'Data Analysis', 'Machine Learning', 'Deep Learning', 'Statistics']
+skills_selected = []
+for skill in skills_list:
+    if st.checkbox(skill):
+        skills_selected.append(skill)
 
 # Prepare the input data for prediction
-skills_list = skills.split(',')
-
 # Example of how you might encode skills
-# This should be replaced with the actual encoding used during training
-skills_encoded = [1 if skill in skills_list else 0 for skill in ['Python', 'Data Analysis', 'Machine Learning', 'Deep Learning', 'Statistics']]
+skills_encoded = [1 if skill in skills_selected else 0 for skill in skills_list]
 
-input_data = pd.DataFrame([[gpa] + skills_encoded], columns=['GPA', 'Python', 'Data Analysis', 'Machine Learning', 'Deep Learning', 'Statistics'])
+input_data = pd.DataFrame([[gpa] + skills_encoded], columns=['GPA'] + skills_list)
 
 # Make prediction
 if st.button('Predict Salary'):
@@ -39,6 +37,7 @@ if st.button('Predict Salary'):
 
 # Additional notes
 st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
+
 
 
 # import streamlit as st
