@@ -8,9 +8,9 @@ model_path = 'random_forest_model.pkl'
 with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
-# Features used during model training
+# Features used during model training, removing 'Student_ID'
 all_features = [
-    'Student_ID', 'Major', 'Number_of_Skills', 'Salary_Range', 'GPA',
+    'Major', 'Number_of_Skills', 'Salary_Range', 'GPA',
     'Graduated', 'Algorithm Development', 'Creativity',
     'AI Ethics and Governance', 'API Development', 'Curiosity',
     'Project Management', 'Business Acumen', 'Communication',
@@ -38,18 +38,20 @@ st.image("salaryprediction.png", width=300, caption="Predict your future Salary"
 # GPA input
 gpa = st.slider('GPA', 0.0, 4.0, 3.0)
 
+# Major input as a dropdown
+majors = ['Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Civil Engineering', 'Mathematics', 'Physics', 'Chemistry', 'Biology']
+major = st.selectbox('Major', majors)
+
 # Other input fields
-student_id = st.text_input('Student ID', '12345')
-major = st.text_input('Major', 'Computer Science')
 number_of_skills = st.number_input('Number of Skills', min_value=0, max_value=50, value=5)
 salary_range = st.selectbox('Salary Range', ['30k-60k', '60k-90k', '90k-120k'])
 graduated = st.selectbox('Graduated', [True, False])
 
 # Skills input with a dropdown
-skills_selected = st.multiselect('Select Skills', all_features[6:46])
+skills_selected = st.multiselect('Select Skills', all_features[5:45])
 
 # Prepare the input data for prediction
-skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[6:46]]
+skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[5:45]]
 
 # Encode categorical variables (Salary Range and Graduated)
 salary_binned = [1 if salary_range == '30k-60k' else 0, 1 if salary_range == '60k-90k' else 0, 1 if salary_range == '90k-120k' else 0]
@@ -71,7 +73,7 @@ titles_encoded = [0]*10  # Example placeholder, should be based on actual logic
 # Add logic to set the appropriate title index to 1
 
 # Assemble all input data
-input_data_values = [student_id, major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + gpa_ranges + titles_encoded
+input_data_values = [major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + gpa_ranges + titles_encoded
 
 # Check the length of input data values and feature columns
 st.write("Length of input data values:", len(input_data_values))
