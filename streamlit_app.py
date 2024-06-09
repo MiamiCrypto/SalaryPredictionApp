@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import pickle
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.preprocessing import LabelEncoder
 
 # Load the trained model
 model_path = 'random_forest_model.pkl'
@@ -13,6 +13,22 @@ with open(model_path, 'rb') as file:
 # Load the dataset for feature importance
 dataset_url = 'https://raw.githubusercontent.com/MiamiCrypto/Capstone-Project-/main/Balanced_Graduated_Data.csv'
 students_data = pd.read_csv(dataset_url)
+
+# Preprocess the dataset similarly to training
+def preprocess_data(data, original_features):
+    # Drop unnecessary columns
+    data = data.drop(columns=['First_Name', 'Last_Name', 'Email', 'Student_ID', 'Salary'])
+    
+    # Encode categorical features
+    data = pd.get_dummies(data, drop_first=True)
+    
+    # Ensure all expected columns are present
+    for col in original_features:
+        if col not in data.columns:
+            data[col] = 0
+    
+    return data[original_features]
+
 students_data_encoded = pd.get_dummies(students_data, drop_first=True)
 exclude_columns = [col for col in students_data_encoded.columns if 'First_Name' in col or 'Email' in col]
 exclude_columns += ['Student_ID', 'Salary']
@@ -53,10 +69,7 @@ for skill in skills:
 input_df = pd.DataFrame([input_data])
 
 # Ensure input_df has all the necessary columns
-missing_cols = set(features) - set(input_df.columns)
-for col in missing_cols:
-    input_df[col] = 0
-input_df = input_df[features]
+input_df = preprocess_data(input_df, features)
 
 # Predict Salary
 if st.button("Predict Salary"):
@@ -79,12 +92,7 @@ st.header("Batch Prediction from CSV")
 uploaded_file = st.file_uploader("Upload CSV File", type=["csv"])
 if uploaded_file is not None:
     batch_data = pd.read_csv(uploaded_file)
-    batch_data_encoded = pd.get_dummies(batch_data, drop_first=True)
-    # Ensure batch_data_encoded has all the necessary columns
-    missing_cols_batch = set(features) - set(batch_data_encoded.columns)
-    for col in missing_cols_batch:
-        batch_data_encoded[col] = 0
-    batch_data_encoded = batch_data_encoded[features]
+    batch_data_encoded = preprocess_data(batch_data, features)
     
     predictions = model.predict(batch_data_encoded)
     batch_data['Predicted_Salary'] = predictions
