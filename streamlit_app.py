@@ -79,6 +79,10 @@ input_data_values = [major, number_of_skills, salary_range, gpa, graduated] + sk
 st.write("Length of input data values:", len(input_data_values))
 st.write("Length of feature columns:", len(all_features))
 
+# Debug: Print the input data values and the feature list
+st.write("Input Data Values:", input_data_values)
+st.write("All Features:", all_features)
+
 if len(input_data_values) == len(all_features):
     input_data = pd.DataFrame([input_data_values], columns=all_features)
 
@@ -97,7 +101,6 @@ else:
 
 # Additional notes
 st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
-
 
 
 # import streamlit as st
