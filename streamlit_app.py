@@ -11,7 +11,7 @@ with open('random_forest_model.pkl', 'rb') as f:
 st.title('Student Salary Predictor')
 
 # Load and display the image centered
-image = Image.open('/path/to/your/image.jpg')
+image = Image.open('salaryprediction.jpg')
 st.image(image, use_column_width=True, caption="Centered Image")
 
 # GPA input
