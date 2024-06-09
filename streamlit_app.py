@@ -47,22 +47,36 @@ graduated = st.selectbox('Graduated', [True, False])
 
 # Skills input with checkboxes
 skills_selected = []
-for skill in all_features[6:]:
+for skill in all_features[6:46]:  # Skills range from index 6 to 45
     if st.checkbox(skill):
         skills_selected.append(skill)
 
 # Prepare the input data for prediction
-skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[6:]]
+skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[6:46]]
 
-# Example of encoding categorical variables (like Salary Range and Graduated) if necessary
-# This needs to match the encoding used during model training
+# Encode categorical variables (Salary Range and Graduated)
 salary_binned = [1 if salary_range == '30k-60k' else 0, 1 if salary_range == '60k-90k' else 0, 1 if salary_range == '90k-120k' else 0]
 graduated_encoded = [1 if graduated else 0]
 
-# Assemble all input data
-input_data_values = [student_id, major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + graduated_encoded
+# Example encoding for GPA Range (assuming it's based on intervals)
+gpa_ranges = [0, 0, 0, 0]  # Example placeholder, should be based on actual logic
+if gpa < 1.0:
+    gpa_ranges[0] = 1
+elif gpa < 2.0:
+    gpa_ranges[1] = 1
+elif gpa < 3.0:
+    gpa_ranges[2] = 1
+else:
+    gpa_ranges[3] = 1
 
-# Debug: Print lengths of the input data and features
+# Example encoding for Titles (assuming 10 possible titles)
+titles_encoded = [0]*10  # Example placeholder, should be based on actual logic
+# Add logic to set the appropriate title index to 1
+
+# Assemble all input data
+input_data_values = [student_id, major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + gpa_ranges + titles_encoded
+
+# Check the length of input data values and feature columns
 st.write("Length of input data values:", len(input_data_values))
 st.write("Length of feature columns:", len(all_features))
 
@@ -81,9 +95,6 @@ if st.button('Predict Salary'):
 
 # Additional notes
 st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
-
-
-
 
 
 # import streamlit as st
