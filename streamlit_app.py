@@ -60,7 +60,13 @@ salary_binned = [1 if salary_range == '30k-60k' else 0, 1 if salary_range == '60
 graduated_encoded = [1 if graduated else 0]
 
 # Assemble all input data
-input_data = pd.DataFrame([[student_id, major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + graduated_encoded], columns=all_features)
+input_data_values = [student_id, major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + graduated_encoded
+
+# Debug: Print lengths of the input data and features
+st.write("Length of input data values:", len(input_data_values))
+st.write("Length of feature columns:", len(all_features))
+
+input_data = pd.DataFrame([input_data_values], columns=all_features)
 
 # Debug: Print the columns of the input data
 st.write("Input Data Columns:", input_data.columns.tolist())
