@@ -18,7 +18,12 @@ st.image("salaryprediction.png", width=300, caption="Predict your future Salary"
 gpa = st.slider('GPA', 0.0, 4.0, 3.0)
 
 # Skills input with checkboxes
-skills_list = ['Python', 'Data Analysis', 'Machine Learning', 'Deep Learning', 'Statistics']
+skills_list = [
+    'Python', 'Data Analysis', 'Machine Learning', 'Deep Learning', 'Statistics',
+    'AI Ethics and Governance', 'AI Frameworks and Libraries', 'API Development',
+    'Adaptability', 'Algorithm Development'
+    # Add all other skills used during model training here
+]
 skills_selected = []
 for skill in skills_list:
     if st.checkbox(skill):
@@ -26,7 +31,10 @@ for skill in skills_list:
 
 # Prepare the input data for prediction
 skills_encoded = [1 if skill in skills_selected else 0 for skill in skills_list]
-input_data = pd.DataFrame([[gpa] + skills_encoded], columns=['GPA'] + skills_list)
+
+# Create a complete input data frame with all expected features
+input_features = ['GPA'] + skills_list
+input_data = pd.DataFrame([[gpa] + skills_encoded], columns=input_features)
 
 # Debug: Print the columns of the input data
 st.write("Input Data Columns:", input_data.columns.tolist())
@@ -41,6 +49,7 @@ if st.button('Predict Salary'):
 
 # Additional notes
 st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
+
 
 
 
