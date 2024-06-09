@@ -4,7 +4,7 @@ import pandas as pd
 from PIL import Image
 
 # Load the model from the pickle file
-with open('/mnt/data/random_forest_model.pkl', 'rb') as f:
+with open('random_forest_model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Title of the app
