@@ -70,7 +70,7 @@ else:
 
 # Example encoding for Titles (assuming 10 possible titles)
 titles_encoded = [0]*10  # Example placeholder, should be based on actual logic
-# Add logic to set the appropriate title index to 1 if needed
+# Add logic to set the appropriate title index to 1
 
 # Assemble all input data
 input_data_values = [major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + gpa_ranges + titles_encoded
@@ -82,6 +82,9 @@ st.write("Length of feature columns:", len(all_features))
 # Debug: Print the input data values and the feature list
 st.write("Input Data Values:", input_data_values)
 st.write("All Features:", all_features)
+
+# Remove the redundant true value to match the length
+input_data_values.pop(4)
 
 if len(input_data_values) == len(all_features):
     input_data = pd.DataFrame([input_data_values], columns=all_features)
