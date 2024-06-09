@@ -10,9 +10,12 @@ with open('random_forest_model.pkl', 'rb') as f:
 # Title of the app
 st.title('Student Salary Predictor')
 
-# Load and display the image centered
-image = Image.open('salaryprediction.png')
-st.image(image, use_column_width=True, caption="Centered Image")
+# # Load and display the image centered
+# image = Image.open('salaryprediction.png')
+# st.image(image, use_column_width=True, caption="Centered Image")
+
+# Display an image from a file
+st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
 # GPA input
 gpa = st.slider('GPA', 0.0, 4.0, 3.0)
