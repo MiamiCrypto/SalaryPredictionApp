@@ -18,23 +18,25 @@ students_data = pd.read_csv(dataset_url)
 
 # Preprocess the dataset
 def preprocess_dataset(data):
-    data = data.drop(columns=['First_Name', 'Last_Name', 'Email', 'Student_ID', 'Salary'])
+    data = data.drop(columns=['First_Name', 'Last_Name', 'Email', 'Student_ID'])
     data = pd.get_dummies(data, drop_first=True)
     return data
 
 students_data_encoded = preprocess_dataset(students_data)
 exclude_columns = [col for col in students_data_encoded.columns if 'First_Name' in col or 'Email' in col]
-exclude_columns += ['Student_ID', 'Salary']
+exclude_columns += ['Student_ID']
 features = students_data_encoded.drop(columns=exclude_columns).columns
 
 # Train the model
 X = students_data_encoded.drop(columns=['Salary'])
 y = students_data['Salary']
 
-# Ensure we have the RandomForestRegressor model
-if not model:
-    model = RandomForestRegressor(n_estimators=100, random_state=42)
-    model.fit(X, y)
+# Train the RandomForestRegressor model if not already trained
+if 'model' not in st.session_state:
+    st.session_state['model'] = RandomForestRegressor(n_estimators=100, random_state=42)
+    st.session_state['model'].fit(X, y)
+
+model = st.session_state['model']
 
 # Streamlit Application
 st.title("Student Salary Prediction")
@@ -75,7 +77,7 @@ st.header("Batch Prediction from CSV")
 uploaded_file = st.file_uploader("Upload CSV File", type=["csv"])
 if uploaded_file is not None:
     batch_data = pd.read_csv(uploaded_file)
-    batch_data_encoded = pd.get_dummies(batch_data, drop_first=True)
+    batch_data_encoded = preprocess_dataset(batch_data)
     for col in features:
         if col not in batch_data_encoded.columns:
             batch_data_encoded[col] = 0
