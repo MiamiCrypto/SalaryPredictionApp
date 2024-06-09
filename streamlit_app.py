@@ -27,17 +27,6 @@ exclude_columns = [col for col in students_data_encoded.columns if 'First_Name' 
 exclude_columns += ['Student_ID']
 features = students_data_encoded.drop(columns=exclude_columns).columns
 
-# Train the model
-X = students_data_encoded.drop(columns=['Salary'])
-y = students_data['Salary']
-
-# Train the RandomForestRegressor model if not already trained
-if 'model' not in st.session_state:
-    st.session_state['model'] = RandomForestRegressor(n_estimators=100, random_state=42)
-    st.session_state['model'].fit(X, y)
-
-model = st.session_state['model']
-
 # Streamlit Application
 st.title("Student Salary Prediction")
 
@@ -106,6 +95,7 @@ r2 = r2_score(y, y_pred)
 st.write(f"Mean Absolute Error (MAE): {mae:.2f}")
 st.write(f"Mean Squared Error (MSE): {mse:.2f}")
 st.write(f"R² Score: {r2:.2f}")
+
 
 
 
