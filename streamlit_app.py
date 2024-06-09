@@ -8,6 +8,27 @@ model_path = 'random_forest_model.pkl'
 with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
+# Features used during model training
+all_features = [
+    'Student_ID', 'Major', 'Number_of_Skills', 'Salary_Range', 'GPA',
+    'Graduated', 'Algorithm Development', 'Creativity',
+    'AI Ethics and Governance', 'API Development', 'Curiosity',
+    'Project Management', 'Business Acumen', 'Communication',
+    'AI Frameworks and Libraries', 'IoT Integration',
+    'Cloud Computing', 'Programming Languages', 'Big Data Technologies',
+    'Ethical Considerations', 'Data Analysis', 'Computer Vision',
+    'Software Engineering Principles', 'Market Analysis', 'Adaptability',
+    'Data Visualization', 'Edge Computing', 'Natural Language Processing (NLP)',
+    'Problem-Solving', 'Robotics', 'Database Management', 'Data Engineering',
+    'Model Training and Evaluation', 'ETL Processes', 'Deep Learning', 'DevOps',
+    'Presentation Skills', 'Collaboration', 'Machine Learning Algorithms', 'Leadership',
+    'Critical Thinking', 'Data Preprocessing', 'Data-Driven Decision Making',
+    'Attention to Detail', 'Programming', 'Salary_Binned_30k-60k',
+    'Salary_Binned_60k-90k', 'Salary_Binned_90k-120k', 'GPA_Range_0', 'GPA_Range_1',
+    'GPA_Range_2', 'GPA_Range_3', 'Title_0', 'Title_1', 'Title_2', 'Title_3',
+    'Title_4', 'Title_5', 'Title_6', 'Title_7', 'Title_8', 'Title_9'
+]
+
 # Title of the app
 st.title('Student Salary Predictor')
 
@@ -17,24 +38,29 @@ st.image("salaryprediction.png", width=300, caption="Predict your future Salary"
 # GPA input
 gpa = st.slider('GPA', 0.0, 4.0, 3.0)
 
+# Other input fields
+student_id = st.text_input('Student ID', '12345')
+major = st.text_input('Major', 'Computer Science')
+number_of_skills = st.number_input('Number of Skills', min_value=0, max_value=50, value=5)
+salary_range = st.selectbox('Salary Range', ['30k-60k', '60k-90k', '90k-120k'])
+graduated = st.selectbox('Graduated', [True, False])
+
 # Skills input with checkboxes
-skills_list = [
-    'Python', 'Data Analysis', 'Machine Learning', 'Deep Learning', 'Statistics',
-    'AI Ethics and Governance', 'AI Frameworks and Libraries', 'API Development',
-    'Adaptability', 'Algorithm Development'
-    # Add all other skills used during model training here
-]
 skills_selected = []
-for skill in skills_list:
+for skill in all_features[6:]:
     if st.checkbox(skill):
         skills_selected.append(skill)
 
 # Prepare the input data for prediction
-skills_encoded = [1 if skill in skills_selected else 0 for skill in skills_list]
+skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[6:]]
 
-# Create a complete input data frame with all expected features
-input_features = ['GPA'] + skills_list
-input_data = pd.DataFrame([[gpa] + skills_encoded], columns=input_features)
+# Example of encoding categorical variables (like Salary Range and Graduated) if necessary
+# This needs to match the encoding used during model training
+salary_binned = [1 if salary_range == '30k-60k' else 0, 1 if salary_range == '60k-90k' else 0, 1 if salary_range == '90k-120k' else 0]
+graduated_encoded = [1 if graduated else 0]
+
+# Assemble all input data
+input_data = pd.DataFrame([[student_id, major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + graduated_encoded], columns=all_features)
 
 # Debug: Print the columns of the input data
 st.write("Input Data Columns:", input_data.columns.tolist())
@@ -49,6 +75,7 @@ if st.button('Predict Salary'):
 
 # Additional notes
 st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
+
 
 
 
