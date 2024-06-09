@@ -36,7 +36,7 @@ st.title('Student Salary Predictor')
 st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
 # Student ID input (since it's required by the model)
-student_id = st.text_input('Student ID', '12345')
+#student_id = st.text_input('Student ID', '12345')
 
 # GPA input
 gpa = st.slider('GPA', 0.0, 4.0, 3.0)
