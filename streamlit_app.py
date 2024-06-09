@@ -60,16 +60,19 @@ input_df = input_df[features]
 
 # Predict Salary
 if st.button("Predict Salary"):
-    predicted_salary = model.predict(input_df)[0]
-    st.write(f"Predicted Salary: ${predicted_salary:.2f}")
+    try:
+        predicted_salary = model.predict(input_df)[0]
+        st.write(f"Predicted Salary: ${predicted_salary:.2f}")
 
-    # Provide Suggestions
-    st.header("Suggestions to Improve Salary")
-    feature_importances = model.feature_importances_
-    suggestions = get_top_suggestions(features, feature_importances)
-    st.write(f"Consider improving the following features/skills to potentially increase your salary:")
-    for suggestion in suggestions:
-        st.write(f"- {suggestion}")
+        # Provide Suggestions
+        st.header("Suggestions to Improve Salary")
+        feature_importances = model.feature_importances_
+        suggestions = get_top_suggestions(features, feature_importances)
+        st.write(f"Consider improving the following features/skills to potentially increase your salary:")
+        for suggestion in suggestions:
+            st.write(f"- {suggestion}")
+    except ValueError as e:
+        st.error(f"Error in prediction: {e}")
 
 # Batch Prediction from CSV
 st.header("Batch Prediction from CSV")
