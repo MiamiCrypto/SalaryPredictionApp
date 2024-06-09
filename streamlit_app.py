@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import pickle
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.preprocessing import LabelEncoder
 
 # Load the trained model
 model_path = 'random_forest_model.pkl'
@@ -14,25 +13,26 @@ with open(model_path, 'rb') as file:
 dataset_url = 'https://raw.githubusercontent.com/MiamiCrypto/Capstone-Project-/main/Balanced_Graduated_Data.csv'
 students_data = pd.read_csv(dataset_url)
 
-# Preprocess the dataset similarly to training
-def preprocess_data(data, original_features):
+# Preprocess the dataset
+def preprocess_dataset(data):
     # Drop unnecessary columns
     data = data.drop(columns=['First_Name', 'Last_Name', 'Email', 'Student_ID', 'Salary'])
-    
     # Encode categorical features
     data = pd.get_dummies(data, drop_first=True)
-    
+    return data
+
+# Preprocess the input data
+def preprocess_input_data(data, original_features):
+    # Encode categorical features
+    data = pd.get_dummies(data, drop_first=True)
     # Ensure all expected columns are present
     for col in original_features:
         if col not in data.columns:
             data[col] = 0
-    
     return data[original_features]
 
-students_data_encoded = pd.get_dummies(students_data, drop_first=True)
-exclude_columns = [col for col in students_data_encoded.columns if 'First_Name' in col or 'Email' in col]
-exclude_columns += ['Student_ID', 'Salary']
-features = students_data_encoded.drop(columns=exclude_columns).columns
+students_data_encoded = preprocess_dataset(students_data)
+features = students_data_encoded.columns
 
 # Function to get top suggestions for improving salary
 def get_top_suggestions(features, importances, num_suggestions=5):
@@ -69,7 +69,7 @@ for skill in skills:
 input_df = pd.DataFrame([input_data])
 
 # Ensure input_df has all the necessary columns
-input_df = preprocess_data(input_df, features)
+input_df = preprocess_input_data(input_df, features)
 
 # Predict Salary
 if st.button("Predict Salary"):
@@ -92,7 +92,7 @@ st.header("Batch Prediction from CSV")
 uploaded_file = st.file_uploader("Upload CSV File", type=["csv"])
 if uploaded_file is not None:
     batch_data = pd.read_csv(uploaded_file)
-    batch_data_encoded = preprocess_data(batch_data, features)
+    batch_data_encoded = preprocess_input_data(batch_data, features)
     
     predictions = model.predict(batch_data_encoded)
     batch_data['Predicted_Salary'] = predictions
@@ -113,6 +113,7 @@ r2_tuned = 0.975
 st.write(f"Mean Absolute Error (MAE): {mae_tuned:.2f}")
 st.write(f"Mean Squared Error (MSE): {mse_tuned:.2f}")
 st.write(f"R² Score: {r2_tuned:.2f}")
+
 
 
 
