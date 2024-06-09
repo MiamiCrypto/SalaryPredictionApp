@@ -45,11 +45,8 @@ number_of_skills = st.number_input('Number of Skills', min_value=0, max_value=50
 salary_range = st.selectbox('Salary Range', ['30k-60k', '60k-90k', '90k-120k'])
 graduated = st.selectbox('Graduated', [True, False])
 
-# Skills input with checkboxes
-skills_selected = []
-for skill in all_features[6:46]:  # Skills range from index 6 to 45
-    if st.checkbox(skill):
-        skills_selected.append(skill)
+# Skills input with a dropdown
+skills_selected = st.multiselect('Select Skills', all_features[6:46])
 
 # Prepare the input data for prediction
 skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[6:46]]
@@ -80,21 +77,25 @@ input_data_values = [student_id, major, number_of_skills, salary_range, gpa, gra
 st.write("Length of input data values:", len(input_data_values))
 st.write("Length of feature columns:", len(all_features))
 
-input_data = pd.DataFrame([input_data_values], columns=all_features)
+if len(input_data_values) == len(all_features):
+    input_data = pd.DataFrame([input_data_values], columns=all_features)
 
-# Debug: Print the columns of the input data
-st.write("Input Data Columns:", input_data.columns.tolist())
+    # Debug: Print the columns of the input data
+    st.write("Input Data Columns:", input_data.columns.tolist())
 
-# Make prediction
-if st.button('Predict Salary'):
-    try:
-        prediction = model.predict(input_data)
-        st.write(f'Predicted Salary: ${prediction[0]:,.2f}')
-    except ValueError as e:
-        st.error(f"ValueError: {e}")
+    # Make prediction
+    if st.button('Predict Salary'):
+        try:
+            prediction = model.predict(input_data)
+            st.write(f'Predicted Salary: ${prediction[0]:,.2f}')
+        except ValueError as e:
+            st.error(f"ValueError: {e}")
+else:
+    st.error("The lengths of input data values and feature columns do not match.")
 
 # Additional notes
 st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
+
 
 
 # import streamlit as st
