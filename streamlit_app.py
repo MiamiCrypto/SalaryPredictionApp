@@ -70,7 +70,7 @@ else:
 
 # Example encoding for Titles (assuming 10 possible titles)
 titles_encoded = [0]*10  # Example placeholder, should be based on actual logic
-# Add logic to set the appropriate title index to 1
+# Add logic to set the appropriate title index to 1 if needed
 
 # Assemble all input data
 input_data_values = [major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + gpa_ranges + titles_encoded
@@ -97,7 +97,7 @@ if len(input_data_values) == len(all_features):
         except ValueError as e:
             st.error(f"ValueError: {e}")
 else:
-    st.error("The lengths of input data values and feature columns do not match.")
+    st.error("The lengths of input data values and feature columns do not match. Please ensure all features are properly encoded.")
 
 # Additional notes
 st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
