@@ -26,7 +26,7 @@ all_features = [
     'Attention to Detail', 'Programming', 'Salary_Binned_30k-60k',
     'Salary_Binned_60k-90k', 'Salary_Binned_90k-120k', 'GPA_Range_0', 'GPA_Range_1',
     'GPA_Range_2', 'GPA_Range_3', 'Title_0', 'Title_1', 'Title_2', 'Title_3',
-    'Title_4', 'Title_5', 'Title_6', 'Title_7', 'Title_8'
+    'Title_4', 'Title_5', 'Title_6', 'Title_7', 'Title_8', 'Title_9', 'Title_10'
 ]
 
 # Title of the app
