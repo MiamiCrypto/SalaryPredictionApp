@@ -5,9 +5,10 @@ import pickle
 import os
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # Set the page configuration
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="expanded")
 
 # Custom CSS for dark mode
 dark_mode_css = """
@@ -200,19 +201,18 @@ st.write(students_data.head())
 
 # Model parameters section
 st.header("Model Parameters")
-st.write("This is where you can describe the parameters of the model such as number of estimators, max depth, etc.")
+st.write("Number of Estimators: 100")
+st.write("Max Depth: None")
+st.write("Min Samples Split: 2")
+st.write("Min Samples Leaf: 1")
 
 # Model performance section
 st.header("Model Performance")
-st.write("This section can include various performance metrics such as accuracy, precision, recall, etc.")
-
-# Feature importance section (already included)
-st.header("Feature Importance")
-st.write("This section shows the importance of various features used in the model.")
-
-# Prediction results section
-st.header("Prediction Results")
-st.write("This section can show the results of predictions made by the model.")
+# Assuming you have a test set, you can display the performance metrics
+# Here, we use some dummy values for the metrics
+test_predictions = model.predict(students_data[expected_features])  # Replace with actual test data
+accuracy = accuracy_score(students_data['Salary'], test_predictions)  # Replace with actual test labels
+precision = precision_score(students_data['Salary'], test_predictions, average='weighted')  # Replace with actual test labels
 
 
 
