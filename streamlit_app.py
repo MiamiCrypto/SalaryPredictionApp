@@ -11,32 +11,14 @@ with open('random_forest_model.pkl', 'rb') as file:
 features = {
     'GPA': (0.0, 4.0, 3.0),
     'Age': (18, 60, 30),
-    'Coding Skills': ['Beginner', 'Intermediate', 'Advanced'],
-    'Machine Learning': ['Beginner', 'Intermediate', 'Advanced'],
-    'App Dev': ['Beginner', 'Intermediate', 'Advanced'],
-    'Backend': ['Beginner', 'Intermediate', 'Advanced'],
-    'Creativity': ['Low', 'Medium', 'High'],
-    'Presentation Skills': ['Low', 'Medium', 'High'],
-    'Problem Solving': ['Low', 'Medium', 'High'],
-    'Budget Management': ['Low', 'Medium', 'High'],
-    'Business Understanding': ['Low', 'Medium', 'High'],
-    'Collaboration': ['Low', 'Medium', 'High'],
-    'Data Science': ['Low', 'Medium', 'High'],
-    'Decision Making': ['Low', 'Medium', 'High'],
-    'Improvement': ['Low', 'Medium', 'High'],
-    'Data Driven Decision Making': ['Low', 'Medium', 'High'],
-    'Attention to Detail': ['Low', 'Medium', 'High'],
-    'Programming Languages': ['Beginner', 'Intermediate', 'Advanced']
-}
-
-# Mapping of skill levels to numerical values
-skill_mapping = {
-    'Beginner': 1,
-    'Intermediate': 2,
-    'Advanced': 3,
-    'Low': 1,
-    'Medium': 2,
-    'High': 3
+    'Skills': [
+        'Coding Skills', 'Machine Learning', 'App Dev', 'Backend', 
+        'Creativity', 'Presentation Skills', 'Problem Solving', 
+        'Budget Management', 'Business Understanding', 'Collaboration', 
+        'Data Science', 'Decision Making', 'Improvement', 
+        'Data Driven Decision Making', 'Attention to Detail', 
+        'Programming Languages'
+    ]
 }
 
 # Streamlit UI
@@ -44,18 +26,28 @@ st.title("Salary Prediction App")
 st.header("Enter the values for the following features to predict the salary")
 
 # Display the image centered
-st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
+st.image("salaryprediction.png", width=300, caption="Predict your future Salary", use_column_width='auto')
 
 # Input fields for the features
 input_data = {}
-for feature, values in features.items():
-    if isinstance(values, tuple):
-        input_data[feature] = st.slider(feature, *values)
-    else:
-        input_data[feature] = st.selectbox(feature, values)
+
+# GPA and Age as sliders
+input_data['GPA'] = st.slider('GPA', *features['GPA'])
+input_data['Age'] = st.slider('Age', *features['Age'])
+
+# Skills as a multi-select dropdown
+selected_skills = st.multiselect('Select Skills', features['Skills'])
+
+# Initialize all skills to 0 (not selected)
+for skill in features['Skills']:
+    input_data[skill] = 0
+
+# Set selected skills to 1 (selected)
+for skill in selected_skills:
+    input_data[skill] = 1
 
 # Convert input data to DataFrame
-input_df = pd.DataFrame([{feature: skill_mapping.get(value, value) for feature, value in input_data.items()}])
+input_df = pd.DataFrame([input_data])
 
 # Predict the salary
 if st.button("Predict Salary"):
