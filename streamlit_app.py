@@ -149,13 +149,16 @@ with col2:
     st.write("Average Salary by Major DataFrame:")
     st.write(avg_salary_by_major)
     
-    # Simplified plotting with a basic color palette
-    fig, ax = plt.subplots()
-    sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, ax=ax)
-    ax.set_title('Average Salary by Major')
-    ax.set_xlabel('Average Salary')
-    ax.set_ylabel('Major')
-    st.pyplot(fig)
+    if not avg_salary_by_major.empty:
+        # Simplified plotting with a basic color palette
+        fig, ax = plt.subplots()
+        sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, ax=ax)
+        ax.set_title('Average Salary by Major')
+        ax.set_xlabel('Average Salary')
+        ax.set_ylabel('Major')
+        st.pyplot(fig)
+    else:
+        st.write("No data available to display the average salary by major.")
 
 
 
