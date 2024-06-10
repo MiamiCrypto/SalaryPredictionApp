@@ -163,10 +163,10 @@ if st.button("Show Feature Importances"):
 # Add sections for input data, model parameters, model performance, and prediction results
 
 # Input data section
-st.header("Input Data")
-st.write(f"No. of samples: {students_data.shape[0]}")
-st.write(f"No. of variables: {students_data.shape[1]}")
-st.write("Sample data:")
+st.header("Sample Data")
+# st.write(f"No. of samples: {students_data.shape[0]}")
+# st.write(f"No. of variables: {students_data.shape[1]}")
+# st.write("Sample data:")
 st.write(students_data.head())
 
 # Model parameters section
