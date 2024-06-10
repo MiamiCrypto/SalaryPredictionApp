@@ -142,20 +142,20 @@ with col2:
     st.subheader("Average Salary by Major")
     avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
     
-    # Debugging: Print the DataFrame to ensure it looks correct
-    st.write("Average Salary by Major DataFrame:")
-    st.write(avg_salary_by_major)
+# Debugging: Print the DataFrame to ensure it looks correct
+st.write("Average Salary by Major DataFrame:")
+st.write(avg_salary_by_major)
     
-    if not avg_salary_by_major.empty:
-        # Plotting the bar plot for average salary by major
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, palette='viridis', ax=ax)
-        ax.set_title('Average Salary by Major')
-        ax.set_xlabel('Average Salary')
-        ax.set_ylabel('Major')
-        st.pyplot(fig)
-    else:
-        st.write("No data available to display the average salary by major.")
+if not avg_salary_by_major.empty:
+    # Plotting the bar plot for average salary by major
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, palette='viridis', ax=ax)
+    ax.set_title('Average Salary by Major')
+    ax.set_xlabel('Average Salary')
+    ax.set_ylabel('Major')
+    st.pyplot(fig)
+else:
+    st.write("No data available to display the average salary by major.")
 
 
 
