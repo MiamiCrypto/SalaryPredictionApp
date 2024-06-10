@@ -77,12 +77,11 @@ features = {
 # Mapping for major codes to names
 major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
 
-col1, col2, col3, col4= st.columns(4)
-# Display the text centered
-with col2, col3:
-    # Streamlit UI
-    st.title("Salary Prediction Dashboard")
-    st.header("Enter the values for the following features to predict the salary")
+
+# Streamlit UI
+st.title("Salary Prediction Dashboard")
+st.header("<h1 style='text-align: center;'>Enter the values for the following features to predict the salary</h1>")
+st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
 
 col1, col2, col3= st.columns(3)
 # Display the image smaller and centered
