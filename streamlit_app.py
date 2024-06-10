@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import pickle
 import os
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # Load the original dataset to get the mean and standard deviation of the salary
 csv_file_path = 'Balanced_Graduated_Data.csv'
@@ -45,7 +47,7 @@ st.title("Salary Prediction App")
 st.header("Enter the values for the following features to predict the salary")
 
 # Display the image smaller and centered
-st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
+st.image("salaryprediction.png", width=150, caption="Predict your future Salary", use_column_width='auto')
 
 # Input fields for the features
 input_data = {}
@@ -104,12 +106,13 @@ if st.button("Show Feature Importances"):
     importance_df = importance_df.sort_values(by='Importance', ascending=False)
     
     # Plotting the bar plot
-    plt.figure(figsize=(12, 8))
-    sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis')
-    plt.title('Feature Importances')
-    plt.xlabel('Importance')
-    plt.ylabel('Feature')
-    st.pyplot(plt)
+    fig, ax = plt.subplots(figsize=(12, 8))
+    sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis', ax=ax)
+    ax.set_title('Feature Importances')
+    ax.set_xlabel('Importance')
+    ax.set_ylabel('Feature')
+    st.pyplot(fig)
+
 
 
 
