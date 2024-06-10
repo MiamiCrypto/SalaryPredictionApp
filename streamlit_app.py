@@ -95,7 +95,7 @@ with col2:
 #st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
 # Input fields for the features
-#input_data = {}
+input_data = {}
 
 # GPA as a slider
 input_data['GPA'] = st.slider('GPA', *features['GPA'])
