@@ -10,7 +10,6 @@ with open('random_forest_model.pkl', 'rb') as file:
 # Define the features and their possible values
 features = {
     'GPA': (0.0, 4.0, 3.0),
-    'Age': (18, 60, 30),
     'Skills': [
         'Coding Skills', 'Machine Learning', 'App Dev', 'Backend', 
         'Creativity', 'Presentation Skills', 'Problem Solving', 
@@ -25,15 +24,14 @@ features = {
 st.title("Salary Prediction App")
 st.header("Enter the values for the following features to predict the salary")
 
-# Display the image centered
-st.image("salaryprediction.png", width=300, caption="Predict your future Salary", use_column_width='auto')
+# Display the image smaller and centered
+st.image("salaryprediction.png", width=150, caption="Predict your future Salary", use_column_width='auto')
 
 # Input fields for the features
 input_data = {}
 
-# GPA and Age as sliders
+# GPA as a slider
 input_data['GPA'] = st.slider('GPA', *features['GPA'])
-input_data['Age'] = st.slider('Age', *features['Age'])
 
 # Skills as a multi-select dropdown
 selected_skills = st.multiselect('Select Skills', features['Skills'])
@@ -59,6 +57,7 @@ input_df = input_df.reindex(columns=expected_features, fill_value=0)
 if st.button("Predict Salary"):
     prediction = model.predict(input_df)
     st.write(f"Predicted Salary: ${prediction[0]:.2f}")
+
 
 
 
