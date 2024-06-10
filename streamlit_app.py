@@ -81,7 +81,7 @@ major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
 # Streamlit UI
 st.title("Salary Prediction Dashboard")
 st.header("<h1 style='text-align: center;'>Enter the values for the following features to predict the salary</h1>")
-st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: ;'>Some title</h1>", unsafe_allow_html=True)
 
 col1, col2, col3= st.columns(3)
 # Display the image smaller and centered
