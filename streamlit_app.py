@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # Set the page configuration
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="expanded")
 
 # Custom CSS for dark mode
 dark_mode_css = """
@@ -149,6 +149,22 @@ if st.button("Show Feature Importances"):
     ax.tick_params(axis='x', labelsize=12)
     st.pyplot(fig)
 
+# Add sections for input data, model parameters, model performance, and prediction results
+
+# Input data section
+st.header("Input Data")
+st.write(f"No. of samples: {students_data.shape[0]}")
+st.write(f"No. of variables: {students_data.shape[1]}")
+st.write("Sample data:")
+st.write(students_data.head())
+
+# Model parameters section
+st.header("Model Parameters")
+st.write("Number of Estimators: 100")
+st.write("Max Depth: None")
+st.write("Min Samples Split: 2")
+st.write("Min Samples Leaf: 1")
+
 # Visualizing Major Distribution and GPA Distribution side by side
 st.header("Distribution of Majors and GPA")
 
@@ -190,22 +206,6 @@ if not avg_salary_by_major.empty:
 else:
     st.write("No data available to display the average salary by major.")
 
-# Add sections for input data, model parameters, model performance, feature importance, and prediction results
-
-# Input data section
-st.header("Input Data")
-st.write(f"No. of samples: {students_data.shape[0]}")
-st.write(f"No. of variables: {students_data.shape[1]}")
-st.write("Sample data:")
-st.write(students_data.head())
-
-# Model parameters section
-st.header("Model Parameters")
-st.write("Number of Estimators: 100")
-st.write("Max Depth: None")
-st.write("Min Samples Split: 2")
-st.write("Min Samples Leaf: 1")
-
 # Model performance section
 st.header("Model Performance")
 # Assuming you have a test set, you can display the performance metrics
@@ -222,8 +222,6 @@ st.write(f"F1 Score: {f1:.2f}")
 
 # Prediction results section
 st.header("Prediction Results")
-#
-
 
 
 
