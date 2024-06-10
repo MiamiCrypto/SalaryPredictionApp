@@ -77,9 +77,9 @@ features = {
 # Mapping for major codes to names
 major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
 
-col1= st.columns(1)
-# Display the image smaller and centered
-with col1:
+col1, col2= st.columns(2)
+# Display the text centered
+with col2:
     # Streamlit UI
     st.title("Salary Prediction Dashboard")
     st.header("Enter the values for the following features to predict the salary")
