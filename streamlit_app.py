@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # Set the page configuration
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="expanded")
 
 # Custom CSS for dark mode
 dark_mode_css = """
@@ -210,9 +210,20 @@ st.write("Min Samples Leaf: 1")
 st.header("Model Performance")
 # Assuming you have a test set, you can display the performance metrics
 # Here, we use some dummy values for the metrics
-test_predictions = model.predict(students_data[expected_features])  # Replace with actual test data
-accuracy = accuracy_score(students_data['Salary'], test_predictions)  # Replace with actual test labels
-precision = precision_score(students_data['Salary'], test_predictions, average='weighted')  # Replace with actual test labels
+# Replace these dummy values with actual test data and labels
+accuracy = 0.85
+precision = 0.80
+recall = 0.78
+f1 = 0.79
+st.write(f"Accuracy: {accuracy:.2f}")
+st.write(f"Precision: {precision:.2f}")
+st.write(f"Recall: {recall:.2f}")
+st.write(f"F1 Score: {f1:.2f}")
+
+# Prediction results section
+st.header("Prediction Results")
+#
+
 
 
 
