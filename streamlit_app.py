@@ -145,6 +145,10 @@ with col2:
     students_data['Major'] = students_data['Major'].map(major_mapping)  # Ensure Major is mapped correctly
     avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
     
+    # Debugging: Print the DataFrame to ensure it looks correct
+    st.write("Average Salary by Major DataFrame:")
+    st.write(avg_salary_by_major)
+    
     fig, ax = plt.subplots()
     sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, palette='viridis', ax=ax)
     ax.set_title('Average Salary by Major')
