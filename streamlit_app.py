@@ -119,6 +119,11 @@ if st.button("Show Feature Importances"):
 # Visualizing Major Distribution
 st.header("Distribution of Majors")
 students_data['Major'] = students_data['Major'].map(major_mapping)  # Map major codes to names
+
+# Debugging: Print the contents of students_data to ensure correct mapping
+st.write("Contents of students_data after mapping the Major column:")
+st.write(students_data[['Major', 'Salary']].head())
+
 major_counts = students_data['Major'].value_counts()
 
 fig, ax = plt.subplots()
@@ -142,7 +147,6 @@ with col1:
 
 with col2:
     st.subheader("Average Salary by Major")
-    students_data['Major'] = students_data['Major'].map(major_mapping)  # Ensure Major is mapped correctly
     avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
     
     # Debugging: Print the DataFrame to ensure it looks correct
@@ -159,4 +163,3 @@ with col2:
         st.pyplot(fig)
     else:
         st.write("No data available to display the average salary by major.")
-
