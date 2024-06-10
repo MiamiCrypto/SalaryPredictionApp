@@ -44,7 +44,7 @@ st.title("Salary Prediction App")
 st.header("Enter the values for the following features to predict the salary")
 
 # Display the image centered
-st.image("salaryprediction.png", width=300, caption="Predict your future Salary", use_column_width='auto')
+st.image("salaryprediction.png", width=300, caption="Predict your future Salary", use_column_width=True)
 
 # Input fields for the features
 input_data = {}
@@ -61,7 +61,6 @@ input_df = pd.DataFrame([{feature: skill_mapping.get(value, value) for feature, 
 if st.button("Predict Salary"):
     prediction = model.predict(input_df)
     st.write(f"Predicted Salary: ${prediction[0]:.2f}")
-
 
 
 
