@@ -7,7 +7,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Set the page configuration for dark mode
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="normal", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="expanded")
 
 # Custom CSS to hide the "Made with Streamlit" watermark
 hide_streamlit_style = """
