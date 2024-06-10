@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 
 # Load the original dataset to get the mean and standard deviation of the salary
-students_data = pd.read_csv('/mnt/data/Balanced_Graduated_Data.csv')
+students_data = pd.read_csv('Balanced_Graduated_Data.csv')
 salary_mean = students_data['Salary'].mean()
 salary_std = students_data['Salary'].std()
 
