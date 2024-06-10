@@ -28,15 +28,15 @@ st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", l
 # """
 # st.markdown(dark_mode_css, unsafe_allow_html=True)
 
-# # Custom CSS to hide the "Made with Streamlit" watermark
-# hide_streamlit_style = """
-#     <style>
-#     #MainMenu {visibility: hidden;}
-#     footer {visibility: hidden;}
-#     header {visibility: hidden;}
-#     </style>
-# """
-# st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+# Custom CSS to hide the "Made with Streamlit" watermark
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Load the original dataset to get the mean and standard deviation of the salary
 csv_file_path = 'Balanced_Graduated_Data.csv'
