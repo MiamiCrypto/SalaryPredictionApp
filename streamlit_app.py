@@ -55,6 +55,12 @@ dark_mode_css = """
     .css-1grh8ro, .css-1grh8ro {
         color: #cfcfcf;
     }
+    .stApp {
+        background-color: #0e1117;
+    }
+    .css-1cpxqw2, .css-1cpxqw2 {
+        background-color: #0e1117;
+    }
     </style>
 """
 st.markdown(dark_mode_css, unsafe_allow_html=True)
