@@ -9,18 +9,6 @@ import matplotlib.pyplot as plt
 # Load the original dataset to get the mean and standard deviation of the salary
 csv_file_path = 'Balanced_Graduated_Data.csv'
 
-[theme]
-base="dark"
-
-[server]
-headless = true
-
-[global]
-disable_telemetry = true
-
-[ui]
-hide_streamlit_markers = true
-
 if os.path.exists(csv_file_path):
     try:
         students_data = pd.read_csv(csv_file_path)
