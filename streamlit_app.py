@@ -8,18 +8,6 @@
 # import seaborn as sns
 # import matplotlib.pyplot as plt
 
-[theme]
-base="dark"
-
-[server]
-headless = true
-
-[global]
-disable_telemetry = true
-
-[ui]
-hide_streamlit_markers = true
-
 # # Load the original dataset to get the mean and standard deviation of the salary
 # csv_file_path = 'Balanced_Graduated_Data.csv'
 
