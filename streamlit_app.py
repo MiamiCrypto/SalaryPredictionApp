@@ -1,109 +1,181 @@
 import streamlit as st
-import pickle
 import pandas as pd
-from PIL import Image
+import numpy as np
+import pickle
+from sklearn.ensemble import RandomForestRegressor
 
-# Load the model from the pickle file
-model_path = 'random_forest_model.pkl'
-with open(model_path, 'rb') as f:
-    model = pickle.load(f)
+# Load the model
+model = pickle.load(open('random_forest_model.pkl', 'rb'))
 
-# Features used during model training
-all_features = [
-    'Student_ID', 'Major', 'Number_of_Skills', 'Salary_Range', 'GPA',
-    'Graduated', 'Algorithm Development', 'Creativity',
-    'AI Ethics and Governance', 'API Development', 'Curiosity',
-    'Project Management', 'Business Acumen', 'Communication',
-    'AI Frameworks and Libraries', 'IoT Integration',
-    'Cloud Computing', 'Programming Languages', 'Big Data Technologies',
-    'Ethical Considerations', 'Data Analysis', 'Computer Vision',
-    'Software Engineering Principles', 'Market Analysis', 'Adaptability',
-    'Data Visualization', 'Edge Computing', 'Natural Language Processing (NLP)',
-    'Problem-Solving', 'Robotics', 'Database Management', 'Data Engineering',
-    'Model Training and Evaluation', 'ETL Processes', 'Deep Learning', 'DevOps',
-    'Presentation Skills', 'Collaboration', 'Machine Learning Algorithms', 'Leadership',
-    'Critical Thinking', 'Data Preprocessing', 'Data-Driven Decision Making',
-    'Attention to Detail', 'Programming', 'Salary_Binned_30k-60k',
-    'Salary_Binned_60k-90k', 'Salary_Binned_90k-120k', 'GPA_Range_0', 'GPA_Range_1',
-    'GPA_Range_2', 'GPA_Range_3', 'Title_0', 'Title_1', 'Title_2', 'Title_3',
-    'Title_4', 'Title_5', 'Title_6', 'Title_7', 'Title_8', 'Title_9'
-]
+# Set the background color
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: black;
+        color: white;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-# Title of the app
-st.title('Student Salary Predictor')
+# App title
+st.title("Salary Prediction App")
 
 # Display the image centered
 st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
-# Student ID input (since it's required by the model)
-#student_id = st.text_input('Student ID', '12345')
+# Sidebar for user input
+st.sidebar.header("User Input Parameters")
 
-# GPA input
-gpa = st.slider('GPA', 0.0, 4.0, 3.0)
+def user_input_features():
+    # Assuming these are the parameters required for prediction
+    # Adjust according to your model
+    age = st.sidebar.slider('Age', 18, 70, 30)
+    experience = st.sidebar.slider('Years of Experience', 0, 50, 5)
+    education = st.sidebar.selectbox('Education Level', ('High School', 'Bachelor', 'Master', 'PhD'))
+    location = st.sidebar.selectbox('Location', ('Urban', 'Suburban', 'Rural'))
+    data = {
+        'age': age,
+        'experience': experience,
+        'education': education,
+        'location': location
+    }
+    features = pd.DataFrame(data, index=[0])
+    return features
 
-# Major input as a dropdown
-majors = ['Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Civil Engineering', 'Mathematics', 'Physics', 'Chemistry', 'Biology']
-major = st.selectbox('Major', majors)
+df = user_input_features()
 
-# Other input fields
-number_of_skills = st.number_input('Number of Skills', min_value=0, max_value=50, value=5)
-salary_range = st.selectbox('Salary Range', ['30k-60k', '60k-90k', '90k-120k'])
-graduated = st.selectbox('Graduated', [True, False])
+# Display user input
+st.subheader('User Input parameters')
+st.write(df)
 
-# Skills input with a dropdown
-skills_selected = st.multiselect('Select Skills', all_features[6:46])
+# Prediction
+prediction = model.predict(df)
+st.subheader('Prediction')
+st.write(f"Predicted Salary: ${prediction[0]:,.2f}")
 
-# Prepare the input data for prediction
-skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[6:46]]
+# Dashboard Section
+st.subheader('Dashboard')
 
-# Encode categorical variables (Salary Range and Graduated)
-salary_binned = [1 if salary_range == '30k-60k' else 0, 1 if salary_range == '60k-90k' else 0, 1 if salary_range == '90k-120k' else 0]
-graduated_encoded = [1 if graduated else 0]
+# Example plot (customize as needed)
+import matplotlib.pyplot as plt
 
-# Example encoding for GPA Range (assuming it's based on intervals)
-gpa_ranges = [0, 0, 0, 0]  # Example placeholder, should be based on actual logic
-if gpa < 1.0:
-    gpa_ranges[0] = 1
-elif gpa < 2.0:
-    gpa_ranges[1] = 1
-elif gpa < 3.0:
-    gpa_ranges[2] = 1
-else:
-    gpa_ranges[3] = 1
+fig, ax = plt.subplots()
+ax.barh(['High School', 'Bachelor', 'Master', 'PhD'], [30, 40, 50, 60], color='skyblue')
+ax.set_xlabel('Average Salary (k)')
+st.pyplot(fig)
 
-# Example encoding for Titles (assuming 10 possible titles)
-titles_encoded = [0]*10  # Example placeholder, should be based on actual logic
-# Add logic to set the appropriate title index to 1
 
-# Assemble all input data
-input_data_values = [student_id, major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + gpa_ranges + titles_encoded
 
-# Check the length of input data values and feature columns
-st.write("Length of input data values:", len(input_data_values))
-st.write("Length of feature columns:", len(all_features))
 
-# Debug: Print the input data values and the feature list
-st.write("Input Data Values:", input_data_values)
-st.write("All Features:", all_features)
+# import streamlit as st
+# import pickle
+# import pandas as pd
+# from PIL import Image
 
-if len(input_data_values) == len(all_features):
-    input_data = pd.DataFrame([input_data_values], columns=all_features)
+# # Load the model from the pickle file
+# model_path = 'random_forest_model.pkl'
+# with open(model_path, 'rb') as f:
+#     model = pickle.load(f)
 
-    # Debug: Print the columns of the input data
-    st.write("Input Data Columns:", input_data.columns.tolist())
+# # Features used during model training
+# all_features = [
+#     'Student_ID', 'Major', 'Number_of_Skills', 'Salary_Range', 'GPA',
+#     'Graduated', 'Algorithm Development', 'Creativity',
+#     'AI Ethics and Governance', 'API Development', 'Curiosity',
+#     'Project Management', 'Business Acumen', 'Communication',
+#     'AI Frameworks and Libraries', 'IoT Integration',
+#     'Cloud Computing', 'Programming Languages', 'Big Data Technologies',
+#     'Ethical Considerations', 'Data Analysis', 'Computer Vision',
+#     'Software Engineering Principles', 'Market Analysis', 'Adaptability',
+#     'Data Visualization', 'Edge Computing', 'Natural Language Processing (NLP)',
+#     'Problem-Solving', 'Robotics', 'Database Management', 'Data Engineering',
+#     'Model Training and Evaluation', 'ETL Processes', 'Deep Learning', 'DevOps',
+#     'Presentation Skills', 'Collaboration', 'Machine Learning Algorithms', 'Leadership',
+#     'Critical Thinking', 'Data Preprocessing', 'Data-Driven Decision Making',
+#     'Attention to Detail', 'Programming', 'Salary_Binned_30k-60k',
+#     'Salary_Binned_60k-90k', 'Salary_Binned_90k-120k', 'GPA_Range_0', 'GPA_Range_1',
+#     'GPA_Range_2', 'GPA_Range_3', 'Title_0', 'Title_1', 'Title_2', 'Title_3',
+#     'Title_4', 'Title_5', 'Title_6', 'Title_7', 'Title_8', 'Title_9'
+# ]
 
-    # Make prediction
-    if st.button('Predict Salary'):
-        try:
-            prediction = model.predict(input_data)
-            st.write(f'Predicted Salary: ${prediction[0]:,.2f}')
-        except ValueError as e:
-            st.error(f"ValueError: {e}")
-else:
-    st.error("The lengths of input data values and feature columns do not match. Please ensure all features are properly encoded.")
+# # Title of the app
+# st.title('Student Salary Predictor')
 
-# Additional notes
-st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
+# # Display the image centered
+# st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
+
+# # Student ID input (since it's required by the model)
+# #student_id = st.text_input('Student ID', '12345')
+
+# # GPA input
+# gpa = st.slider('GPA', 0.0, 4.0, 3.0)
+
+# # Major input as a dropdown
+# majors = ['Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Civil Engineering', 'Mathematics', 'Physics', 'Chemistry', 'Biology']
+# major = st.selectbox('Major', majors)
+
+# # Other input fields
+# number_of_skills = st.number_input('Number of Skills', min_value=0, max_value=50, value=5)
+# salary_range = st.selectbox('Salary Range', ['30k-60k', '60k-90k', '90k-120k'])
+# graduated = st.selectbox('Graduated', [True, False])
+
+# # Skills input with a dropdown
+# skills_selected = st.multiselect('Select Skills', all_features[6:46])
+
+# # Prepare the input data for prediction
+# skills_encoded = [1 if skill in skills_selected else 0 for skill in all_features[6:46]]
+
+# # Encode categorical variables (Salary Range and Graduated)
+# salary_binned = [1 if salary_range == '30k-60k' else 0, 1 if salary_range == '60k-90k' else 0, 1 if salary_range == '90k-120k' else 0]
+# graduated_encoded = [1 if graduated else 0]
+
+# # Example encoding for GPA Range (assuming it's based on intervals)
+# gpa_ranges = [0, 0, 0, 0]  # Example placeholder, should be based on actual logic
+# if gpa < 1.0:
+#     gpa_ranges[0] = 1
+# elif gpa < 2.0:
+#     gpa_ranges[1] = 1
+# elif gpa < 3.0:
+#     gpa_ranges[2] = 1
+# else:
+#     gpa_ranges[3] = 1
+
+# # Example encoding for Titles (assuming 10 possible titles)
+# titles_encoded = [0]*10  # Example placeholder, should be based on actual logic
+# # Add logic to set the appropriate title index to 1
+
+# # Assemble all input data
+# input_data_values = [student_id, major, number_of_skills, salary_range, gpa, graduated] + skills_encoded + salary_binned + gpa_ranges + titles_encoded
+
+# # Check the length of input data values and feature columns
+# st.write("Length of input data values:", len(input_data_values))
+# st.write("Length of feature columns:", len(all_features))
+
+# # Debug: Print the input data values and the feature list
+# st.write("Input Data Values:", input_data_values)
+# st.write("All Features:", all_features)
+
+# if len(input_data_values) == len(all_features):
+#     input_data = pd.DataFrame([input_data_values], columns=all_features)
+
+#     # Debug: Print the columns of the input data
+#     st.write("Input Data Columns:", input_data.columns.tolist())
+
+#     # Make prediction
+#     if st.button('Predict Salary'):
+#         try:
+#             prediction = model.predict(input_data)
+#             st.write(f'Predicted Salary: ${prediction[0]:,.2f}')
+#         except ValueError as e:
+#             st.error(f"ValueError: {e}")
+# else:
+#     st.error("The lengths of input data values and feature columns do not match. Please ensure all features are properly encoded.")
+
+# # Additional notes
+# st.write('Adjust the GPA and add relevant skills to see the predicted salary.')
 
 
 # import streamlit as st
