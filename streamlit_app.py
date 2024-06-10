@@ -170,11 +170,11 @@ st.header("Sample Data")
 st.write(students_data.head())
 
 # Model parameters section
-st.header("Model Parameters")
-st.write("Number of Estimators: 100")
-st.write("Max Depth: None")
-st.write("Min Samples Split: 2")
-st.write("Min Samples Leaf: 1")
+# st.header("Model Parameters")
+# st.write("Number of Estimators: 100")
+# st.write("Max Depth: None")
+# st.write("Min Samples Split: 2")
+# st.write("Min Samples Leaf: 1")
 
 # Visualizing Major Distribution and GPA Distribution side by side
 st.header("Distribution of Majors and GPA")
@@ -200,7 +200,7 @@ with col2:
     st.pyplot(fig)
 
 st.header("Average Salary by Major")
-avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
+avg_salary_by_major = students_data.groupby('Major')['Salary']'.mean().reset_index()
 
 # Debugging: Print the DataFrame to ensure it looks correct
 st.write("Average Salary by Major DataFrame:")
@@ -230,11 +230,6 @@ st.write(f"Accuracy: {accuracy:.2f}")
 st.write(f"Precision: {precision:.2f}")
 st.write(f"Recall: {recall:.2f}")
 st.write(f"F1 Score: {f1:.2f}")
-
-# Prediction results section
-st.header("Prediction Results")
-
-
 
 
 
