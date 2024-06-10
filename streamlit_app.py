@@ -200,7 +200,9 @@ with col2:
     st.pyplot(fig)
 
 st.header("Average Salary by Major")
-avg_salary_by_major = students_data.groupby('Major')['Salary']['Salary_Binned'].mean().reset_index()
+#avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
+avg_salary_by_major = students_data.groupby('Major')[['Salary', 'Salary_Binned', 'Graduated']].mean().reset_index()
+
 
 # Debugging: Print the DataFrame to ensure it looks correct
 st.write("Average Salary by Major DataFrame:")
