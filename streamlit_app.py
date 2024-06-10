@@ -7,7 +7,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Set the page configuration
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="expanded")
 
 # Custom CSS for dark mode
 dark_mode_css = """
