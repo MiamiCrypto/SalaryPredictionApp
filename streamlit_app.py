@@ -8,9 +8,16 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
 
-# Load the trained model
-with open('best_gradient_boosting_model.pkl', 'rb') as file:
-    model = pickle.load(file)
+# Load the trained model with error handling
+try:
+    with open('best_gradient_boosting_model.pkl', 'rb') as file:
+        model = pickle.load(file)
+except FileNotFoundError:
+    st.error("Model file not found. Please ensure 'best_gradient_boosting_model.pkl' exists in the directory.")
+    st.stop()
+except Exception as e:
+    st.error(f"An error occurred while loading the model: {e}")
+    st.stop()
 
 # Load the dataset to get feature information
 data = pd.read_csv('https://raw.githubusercontent.com/MiamiCrypto/Capstone-Project-/main/Balanced_Graduated_Data.csv')
@@ -82,12 +89,13 @@ features = numeric_features + list(preprocessor.transformers_[1][1]['onehot'].ge
 
 # Create a DataFrame for plotting
 importance_df = pd.DataFrame({'Feature': features, 'Importance': feature_importance})
-importance_df = sorted_values(by='Importance', ascending=False)
+importance_df = importance_df.sort_values(by='Importance', ascending=False)
 
 # Plot feature importance
 fig, ax = plt.subplots()
 importance_df.plot(kind='bar', x='Feature', y='Importance', ax=ax)
 st.pyplot(fig)
+
 
 
 
