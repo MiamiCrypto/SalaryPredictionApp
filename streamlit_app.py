@@ -79,8 +79,8 @@ major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
 
 
 # Streamlit UI
-st.markdown("<h1 style='text-align: center; color: ;'>Some title</h1>", unsafe_allow_html=True)
-st.title("Salary Prediction Dashboard")
+st.markdown("<h1 style='text-align: center; color: ;'>Salary Prediction Dashboard</h1>", unsafe_allow_html=True)
+#st.title("Salary Prediction Dashboard")
 st.header("<h1 style='text-align: center;'>Enter the values for the following features to predict the salary</h1>")
 
 col1, col2, col3= st.columns(3)
