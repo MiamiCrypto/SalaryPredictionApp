@@ -131,14 +131,177 @@ ax.pie(graduated_counts, labels=['Graduated', 'Not Graduated'], autopct='%1.1f%%
 ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 st.pyplot(fig)
 
-# Visualizing GPA Distribution
-st.header("Distribution of GPA")
-fig, ax = plt.subplots()
-sns.histplot(students_data['GPA'], bins=10, kde=True, ax=ax)
-ax.set_title('Distribution of GPA')
-ax.set_xlabel('GPA')
-ax.set_ylabel('Frequency')
-st.pyplot(fig)
+# Visualizing GPA Distribution and Average Salary by Major side by side
+st.header("GPA Distribution and Average Salary by Major")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.subheader("Distribution of GPA")
+    fig, ax = plt.subplots()
+    sns.histplot(students_data['GPA'], bins=10, kde=True, ax=ax)
+    ax.set_title('Distribution of GPA')
+    ax.set_xlabel('GPA')
+    ax.set_ylabel('Frequency')
+    st.pyplot(fig)
+
+with col2:
+    st.subheader("Average Salary by Major with at least 10 Skills")
+    students_data['Skill_Count'] = students_data[features['Skills']].sum(axis=1)
+    filtered_data = students_data[students_data['Skill_Count'] >= 10]
+    avg_salary_by_major = filtered_data.groupby('Major')['Salary'].mean().reset_index()
+    
+    fig, ax = plt.subplots()
+    sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, palette='viridis', ax=ax)
+    ax.set_title('Average Salary by Major with at least 10 Skills')
+    ax.set_xlabel('Average Salary')
+    ax.set_ylabel('Major')
+    st.pyplot(fig)
+
+
+
+
+# import streamlit as st
+# import pandas as pd
+# import numpy as np
+# import pickle
+# import os
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+
+# # Load the original dataset to get the mean and standard deviation of the salary
+# csv_file_path = 'Balanced_Graduated_Data.csv'
+
+# if os.path.exists(csv_file_path):
+#     try:
+#         students_data = pd.read_csv(csv_file_path)
+#         salary_mean = students_data['Salary'].mean()
+#         salary_std = students_data['Salary'].std()
+#     except Exception as e:
+#         st.error(f"Error reading the CSV file: {e}")
+# else:
+#     st.error(f"CSV file not found: {csv_file_path}")
+
+# # Load the trained model
+# model_file_path = 'random_forest_model.pkl'
+# if os.path.exists(model_file_path):
+#     with open(model_file_path, 'rb') as file:
+#         model = pickle.load(file)
+# else:
+#     st.error(f"Model file not found: {model_file_path}")
+
+# # Define the features and their possible values
+# features = {
+#     'GPA': (0.0, 4.0, 3.0),
+#     'Skills': [
+#         'Coding Skills', 'Machine Learning', 'App Dev', 'Backend', 
+#         'Creativity', 'Presentation Skills', 'Problem Solving', 
+#         'Budget Management', 'Business Understanding', 'Collaboration', 
+#         'Data Science', 'Decision Making', 'Improvement', 
+#         'Data Driven Decision Making', 'Attention to Detail', 
+#         'Programming Languages'
+#     ],
+#     'Major': ['Applied Artificial Intelligence', 'Data Analytics'],
+#     'Graduated': ['Yes', 'No']
+# }
+
+# # Streamlit UI
+# st.title("Salary Prediction Dashboard")
+# st.header("Enter the values for the following features to predict the salary")
+
+# # Display the image smaller and centered
+# st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
+
+# # Input fields for the features
+# input_data = {}
+
+# # GPA as a slider
+# input_data['GPA'] = st.slider('GPA', *features['GPA'])
+
+# # Skills as a multi-select dropdown
+# selected_skills = st.multiselect('Select Skills', features['Skills'])
+
+# # Major as a dropdown
+# input_data['Major'] = st.selectbox('Select Major', features['Major'])
+
+# # Graduated as a dropdown
+# input_data['Graduated'] = st.selectbox('Graduated (Yes/No)', features['Graduated'])
+
+# # Initialize all skills to 0 (not selected)
+# for skill in features['Skills']:
+#     input_data[skill] = 0
+
+# # Set selected skills to 1 (selected)
+# for skill in selected_skills:
+#     input_data[skill] = 1
+
+# # Convert categorical features to numerical
+# input_data['Major'] = features['Major'].index(input_data['Major'])
+# input_data['Graduated'] = 1 if input_data['Graduated'] == 'Yes' else 0
+
+# # Convert input data to DataFrame
+# input_df = pd.DataFrame([input_data])
+
+# # Ensure the input DataFrame has the same columns as the model expects
+# expected_features = model.feature_names_in_
+
+# # Reorder and align the input data to match the expected features
+# input_df = input_df.reindex(columns=expected_features, fill_value=0)
+
+# # Predict the salary
+# if st.button("Predict Salary"):
+#     standardized_prediction = model.predict(input_df)
+#     original_scale_prediction = standardized_prediction[0] * salary_std + salary_mean
+#     st.write(f"Predicted Salary: ${original_scale_prediction:.2f}")
+
+# # Show feature importances
+# if st.button("Show Feature Importances"):
+#     feature_importances = model.feature_importances_
+#     feature_names = model.feature_names_in_
+    
+#     # Create a DataFrame for the feature importances
+#     importance_df = pd.DataFrame({
+#         'Feature': feature_names,
+#         'Importance': feature_importances
+#     })
+    
+#     # Sort the DataFrame by importance
+#     importance_df = importance_df.sort_values(by='Importance', ascending=False)
+    
+#     # Plotting the bar plot
+#     fig, ax = plt.subplots(figsize=(12, 8))
+#     sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis', ax=ax)
+#     ax.set_title('Feature Importances')
+#     ax.set_xlabel('Importance')
+#     ax.set_ylabel('Feature')
+#     st.pyplot(fig)
+
+# # Visualizing Major Distribution
+# st.header("Distribution of Majors")
+# major_counts = students_data['Major'].value_counts()
+
+# fig, ax = plt.subplots()
+# ax.pie(major_counts, labels=major_counts.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette('viridis', len(major_counts)))
+# ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+# st.pyplot(fig)
+
+# # Visualizing Graduated Distribution
+# st.header("Distribution of Graduated")
+# graduated_counts = students_data['Graduated'].value_counts()
+
+# fig, ax = plt.subplots()
+# ax.pie(graduated_counts, labels=['Graduated', 'Not Graduated'], autopct='%1.1f%%', startangle=90, colors=sns.color_palette('viridis', 2))
+# ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+# st.pyplot(fig)
+
+# # Visualizing GPA Distribution
+# st.header("Distribution of GPA")
+# fig, ax = plt.subplots()
+# sns.histplot(students_data['GPA'], bins=10, kde=True, ax=ax)
+# ax.set_title('Distribution of GPA')
+# ax.set_xlabel('GPA')
+# ax.set_ylabel('Frequency')
+# st.pyplot(fig)
 
 
 # import streamlit as st
