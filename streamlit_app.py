@@ -7,18 +7,18 @@ from sklearn.ensemble import RandomForestRegressor
 # Load the model
 model = pickle.load(open('random_forest_model.pkl', 'rb'))
 
-# Set the background color
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: black;
-        color: white;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# # Set the background color
+# st.markdown(
+#     """
+#     <style>
+#     .stApp {
+#         background-color: black;
+#         color: white;
+#     }
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+# )
 
 # App title
 st.title("Salary Prediction App")
