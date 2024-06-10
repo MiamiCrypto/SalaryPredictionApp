@@ -80,9 +80,12 @@ major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
 st.title("Salary Prediction Dashboard")
 st.header("Enter the values for the following features to predict the salary")
 
+col1, col2, col3= st.columns(3)
 # Display the image smaller and centered
-st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
-st.markdown("</div>", unsafe_allow_html=True)
+
+with col2 = 
+    st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # Display the image smaller and centered
 #st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
