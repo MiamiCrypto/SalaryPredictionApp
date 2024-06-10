@@ -7,7 +7,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Set the page configuration
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="auto")
+st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="expanded")
 
 # Custom CSS for dark mode
 dark_mode_css = """
@@ -24,6 +24,36 @@ dark_mode_css = """
     }
     .css-1pxd2dn, .css-1pxd2dn {
         background-color: #1e222a;
+    }
+    .css-1a32fsj, .css-1a32fsj {
+        background-color: #0e1117;
+    }
+    .css-2trqyj, .css-2trqyj {
+        color: #cfcfcf;
+    }
+    .css-12oz5g7, .css-12oz5g7 {
+        color: #cfcfcf;
+    }
+    .css-1lypyze, .css-1lypyze {
+        color: #cfcfcf;
+    }
+    .css-1rs6os, .css-1rs6os {
+        color: #cfcfcf;
+    }
+    .css-1vbkxwb, .css-1vbkxwb {
+        color: #cfcfcf;
+    }
+    .css-1hfz7xv, .css-1hfz7xv {
+        background-color: #0e1117;
+    }
+    .css-1l5zk5j, .css-1l5zk5j {
+        background-color: #0e1117;
+    }
+    .css-18ni7ap, .css-18ni7ap {
+        background-color: #0e1117;
+    }
+    .css-1grh8ro, .css-1grh8ro {
+        color: #cfcfcf;
     }
     </style>
 """
