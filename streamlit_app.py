@@ -5,7 +5,7 @@ import pickle
 import os
 
 # Load the original dataset to get the mean and standard deviation of the salary
-csv_file_path = '/mnt/data/Balanced_Graduated_Data.csv'
+csv_file_path = 'Balanced_Graduated_Data.csv'
 
 if os.path.exists(csv_file_path):
     try:
