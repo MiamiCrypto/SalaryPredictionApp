@@ -139,11 +139,12 @@ with col2:
     ax.set_ylabel('Frequency')
     st.pyplot(fig)
 
-    st.subheader("Average Salary by Major")
+    st.header("Average Salary by Major")
     avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
     
 # Debugging: Print the DataFrame to ensure it looks correct
 st.write("Average Salary by Major DataFrame:")
+#st.header("Average Salary by Major")
 st.write(avg_salary_by_major)
     
 if not avg_salary_by_major.empty:
