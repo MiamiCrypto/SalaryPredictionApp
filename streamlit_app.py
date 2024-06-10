@@ -5,7 +5,7 @@ import pickle
 import matplotlib.pyplot as plt
 
 # Load the model
-model = pickle.load(open('/mnt/data/random_forest_model.pkl', 'rb'))
+model = pickle.load(open('random_forest_model.pkl', 'rb'))
 
 # App title
 st.title("Salary Prediction App")
