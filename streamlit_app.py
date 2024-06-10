@@ -2,88 +2,90 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
 import matplotlib.pyplot as plt
 
-# Load the model
-model = pickle.load(open('random_forest_model.pkl', 'rb'))
+# Load the trained model
+with open('best_gradient_boosting_model.pkl', 'rb') as file:
+    model = pickle.load(file)
 
-# App title
-st.title("Salary Prediction App")
+# Load the dataset to get feature information
+data = pd.read_csv('https://raw.githubusercontent.com/MiamiCrypto/Capstone-Project-/main/Balanced_Graduated_Data.csv')
+
+# Convert boolean to integer for 'Graduated' column
+data['Graduated'] = data['Graduated'].astype(int)
+
+# Define numeric and categorical features
+numeric_features = ['Number_of_Skills', 'GPA']
+categorical_features = data.drop(columns=numeric_features + ['Student_ID', 'First_Name', 'Last_Name', 'Email', 'Salary', 'Salary_Range', 'Salary_Binned']).columns.tolist()
+
+# Define preprocessing pipelines
+numeric_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='mean')),
+    ('scaler', StandardScaler())
+])
+
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
+    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+])
+
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', numeric_transformer, numeric_features),
+        ('cat', categorical_transformer, categorical_features)
+    ])
+
+# Streamlit application
+st.title('Salary Prediction App')
+
+# Display the image centered
+st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
 # Sidebar for user input
-st.sidebar.header("User Input Parameters")
+st.sidebar.header('User Input Features')
 
-# Define user input function based on known features
 def user_input_features():
-    # Adjust these according to your dataset features
-    age = st.sidebar.slider('Age', 18, 70, 30)
-    experience = st.sidebar.slider('Years of Experience', 0, 50, 5)
-    job_level = st.sidebar.selectbox('Job Level', ('Entry', 'Mid', 'Senior'))
-    department = st.sidebar.selectbox('Department', ('Sales', 'Engineering', 'HR', 'Finance'))
-
-    data = {
-        'age': age,
-        'experience': experience,
-        'job_level': job_level,
-        'department': department
-    }
-
-    features = pd.DataFrame(data, index=[0])
-    return features
+    Number_of_Skills = st.sidebar.slider('Number of Skills', 1, 50, 10)
+    GPA = st.sidebar.slider('GPA', 0.0, 4.0, 3.0)
+    Graduated = st.sidebar.selectbox('Graduated', [0, 1])
+    
+    feature_dict = {'Number_of_Skills': Number_of_Skills, 'GPA': GPA, 'Graduated': Graduated}
+    
+    for col in categorical_features:
+        if data[col].nunique() == 2:
+            feature_dict[col] = st.sidebar.selectbox(col, data[col].unique())
+        else:
+            feature_dict[col] = st.sidebar.multiselect(col, data[col].unique(), default=data[col].unique()[0])
+    
+    return pd.DataFrame(feature_dict, index=[0])
 
 df = user_input_features()
 
-# Display user input
-st.subheader('User Input parameters')
-st.write(df)
+# Preprocess the input data
+X_input = preprocessor.transform(df)
 
-# One-hot encoding for categorical features
-df = pd.get_dummies(df)
+# Make predictions
+prediction = model.predict(X_input)
 
-# Align the dataframe with the model's expected input
-model_columns = ['age', 'experience', 'job_level_Entry', 'job_level_Mid', 'job_level_Senior',
-                 'department_Sales', 'department_Engineering', 'department_HR', 'department_Finance']
-df = df.reindex(columns=model_columns, fill_value=0)
+# Display the prediction
+st.subheader('Predicted Salary')
+st.write(prediction[0])
 
-# Prediction
-prediction = model.predict(df)
-st.subheader('Prediction')
-st.write(f"Predicted Salary: ${prediction[0]:,.2f}")
+# Display charts
+st.subheader('Feature Importance')
+feature_importance = model.feature_importances_
+features = numeric_features + list(preprocessor.transformers_[1][1]['onehot'].get_feature_names_out(categorical_features))
 
-# Dashboard Section
-st.subheader('Dashboard')
+# Create a DataFrame for plotting
+importance_df = pd.DataFrame({'Feature': features, 'Importance': feature_importance})
+importance_df = importance_df.sort_values(by='Importance', ascending=False)
 
-# Example plot: Distribution of salaries
-salaries = np.random.normal(loc=50000, scale=15000, size=1000)  # Replace with actual salary data
+# Plot feature importance
 fig, ax = plt.subplots()
-ax.hist(salaries, bins=30, edgecolor='black')
-ax.set_title('Distribution of Salaries')
-ax.set_xlabel('Salary')
-ax.set_ylabel('Frequency')
-st.pyplot(fig)
-
-# Example plot: Average salary by department
-avg_salary_by_dept = pd.DataFrame({
-    'Department': ['Sales', 'Engineering', 'HR', 'Finance'],
-    'Average Salary': [55000, 65000, 45000, 60000]  # Replace with actual data
-})
-fig, ax = plt.subplots()
-ax.barh(avg_salary_by_dept['Department'], avg_salary_by_dept['Average Salary'], color='skyblue')
-ax.set_title('Average Salary by Department')
-ax.set_xlabel('Average Salary')
-ax.set_ylabel('Department')
-st.pyplot(fig)
-
-# Example plot: Average salary by job level
-avg_salary_by_level = pd.DataFrame({
-    'Job Level': ['Entry', 'Mid', 'Senior'],
-    'Average Salary': [40000, 60000, 80000]  # Replace with actual data
-})
-fig, ax = plt.subplots()
-ax.barh(avg_salary_by_level['Job Level'], avg_salary_by_level['Average Salary'], color='skyblue')
-ax.set_title('Average Salary by Job Level')
-ax.set_xlabel('Average Salary')
-ax.set_ylabel('Job Level')
+importance_df.plot(kind='bar', x='Feature', y='Importance', ax=ax)
 st.pyplot(fig)
 
 
