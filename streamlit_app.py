@@ -115,6 +115,7 @@ if st.button("Show Feature Importances"):
 
 # Visualizing Major Distribution
 st.header("Distribution of Majors")
+students_data['Major'] = students_data['Major'].astype(str)  # Ensure Major is treated as string
 major_counts = students_data['Major'].value_counts()
 
 fig, ax = plt.subplots()
@@ -139,6 +140,7 @@ with col1:
 with col2:
     st.subheader("Average Salary by Major")
     avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
+    avg_salary_by_major['Major'] = avg_salary_by_major['Major'].astype(str)  # Ensure Major is treated as string
     
     fig, ax = plt.subplots()
     sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, palette='viridis', ax=ax)
