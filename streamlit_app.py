@@ -2,15 +2,28 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import os
 
 # Load the original dataset to get the mean and standard deviation of the salary
-students_data = pd.read_csv('Balanced_Graduated_Data.csv')
-salary_mean = students_data['Salary'].mean()
-salary_std = students_data['Salary'].std()
+csv_file_path = '/mnt/data/Balanced_Graduated_Data.csv'
+
+if os.path.exists(csv_file_path):
+    try:
+        students_data = pd.read_csv(csv_file_path)
+        salary_mean = students_data['Salary'].mean()
+        salary_std = students_data['Salary'].std()
+    except Exception as e:
+        st.error(f"Error reading the CSV file: {e}")
+else:
+    st.error(f"CSV file not found: {csv_file_path}")
 
 # Load the trained model
-with open('random_forest_model.pkl', 'rb') as file:
-    model = pickle.load(file)
+model_file_path = '/mnt/data/random_forest_model.pkl'
+if os.path.exists(model_file_path):
+    with open(model_file_path, 'rb') as file:
+        model = pickle.load(file)
+else:
+    st.error(f"Model file not found: {model_file_path}")
 
 # Define the features and their possible values
 features = {
@@ -22,7 +35,9 @@ features = {
         'Data Science', 'Decision Making', 'Improvement', 
         'Data Driven Decision Making', 'Attention to Detail', 
         'Programming Languages'
-    ]
+    ],
+    'Major': ['Engineering', 'Science', 'Business', 'Arts'],
+    'Graduated': ['Yes', 'No']
 }
 
 # Streamlit UI
@@ -41,6 +56,12 @@ input_data['GPA'] = st.slider('GPA', *features['GPA'])
 # Skills as a multi-select dropdown
 selected_skills = st.multiselect('Select Skills', features['Skills'])
 
+# Major as a dropdown
+input_data['Major'] = st.selectbox('Select Major', features['Major'])
+
+# Graduated as a dropdown
+input_data['Graduated'] = st.selectbox('Graduated (Yes/No)', features['Graduated'])
+
 # Initialize all skills to 0 (not selected)
 for skill in features['Skills']:
     input_data[skill] = 0
@@ -48,6 +69,10 @@ for skill in features['Skills']:
 # Set selected skills to 1 (selected)
 for skill in selected_skills:
     input_data[skill] = 1
+
+# Convert categorical features to numerical
+input_data['Major'] = features['Major'].index(input_data['Major'])
+input_data['Graduated'] = 1 if input_data['Graduated'] == 'Yes' else 0
 
 # Convert input data to DataFrame
 input_df = pd.DataFrame([input_data])
