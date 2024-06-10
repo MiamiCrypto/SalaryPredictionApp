@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import pickle
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Load the model
 model = pickle.load(open('/mnt/data/random_forest_model.pkl', 'rb'))
@@ -57,7 +56,7 @@ st.subheader('Dashboard')
 # Example plot: Distribution of salaries
 salaries = np.random.normal(loc=50000, scale=15000, size=1000)  # Replace with actual salary data
 fig, ax = plt.subplots()
-sns.histplot(salaries, kde=True, ax=ax)
+ax.hist(salaries, bins=30, edgecolor='black')
 ax.set_title('Distribution of Salaries')
 ax.set_xlabel('Salary')
 ax.set_ylabel('Frequency')
@@ -69,7 +68,7 @@ avg_salary_by_dept = pd.DataFrame({
     'Average Salary': [55000, 65000, 45000, 60000]  # Replace with actual data
 })
 fig, ax = plt.subplots()
-sns.barplot(x='Average Salary', y='Department', data=avg_salary_by_dept, ax=ax)
+ax.barh(avg_salary_by_dept['Department'], avg_salary_by_dept['Average Salary'], color='skyblue')
 ax.set_title('Average Salary by Department')
 ax.set_xlabel('Average Salary')
 ax.set_ylabel('Department')
@@ -81,13 +80,11 @@ avg_salary_by_level = pd.DataFrame({
     'Average Salary': [40000, 60000, 80000]  # Replace with actual data
 })
 fig, ax = plt.subplots()
-sns.barplot(x='Average Salary', y='Job Level', data=avg_salary_by_level, ax=ax)
+ax.barh(avg_salary_by_level['Job Level'], avg_salary_by_level['Average Salary'], color='skyblue')
 ax.set_title('Average Salary by Job Level')
 ax.set_xlabel('Average Salary')
 ax.set_ylabel('Job Level')
 st.pyplot(fig)
-
-
 
 
 
