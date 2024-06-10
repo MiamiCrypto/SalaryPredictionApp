@@ -42,6 +42,9 @@ features = {
     'Graduated': ['Yes', 'No']
 }
 
+# Mapping for major codes to names
+major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
+
 # Streamlit UI
 st.title("Salary Prediction Dashboard")
 st.header("Enter the values for the following features to predict the salary")
@@ -115,7 +118,7 @@ if st.button("Show Feature Importances"):
 
 # Visualizing Major Distribution
 st.header("Distribution of Majors")
-students_data['Major'] = students_data['Major'].astype(str)  # Ensure Major is treated as string
+students_data['Major'] = students_data['Major'].map(major_mapping)  # Map major codes to names
 major_counts = students_data['Major'].value_counts()
 
 fig, ax = plt.subplots()
@@ -139,8 +142,8 @@ with col1:
 
 with col2:
     st.subheader("Average Salary by Major")
+    students_data['Major'] = students_data['Major'].map(major_mapping)  # Ensure Major is mapped correctly
     avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
-    avg_salary_by_major['Major'] = avg_salary_by_major['Major'].astype(str)  # Ensure Major is treated as string
     
     fig, ax = plt.subplots()
     sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, palette='viridis', ax=ax)
