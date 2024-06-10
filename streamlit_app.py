@@ -79,7 +79,7 @@ major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
 
 col1= st.columns(1)
 # Display the image smaller and centered
-with col:
+with col1:
     # Streamlit UI
     st.title("Salary Prediction Dashboard")
     st.header("Enter the values for the following features to predict the salary")
