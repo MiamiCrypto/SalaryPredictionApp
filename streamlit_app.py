@@ -5,6 +5,7 @@ import pickle
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
 
 # Load the trained model
@@ -81,12 +82,13 @@ features = numeric_features + list(preprocessor.transformers_[1][1]['onehot'].ge
 
 # Create a DataFrame for plotting
 importance_df = pd.DataFrame({'Feature': features, 'Importance': feature_importance})
-importance_df = importance_df.sort_values(by='Importance', ascending=False)
+importance_df = sorted_values(by='Importance', ascending=False)
 
 # Plot feature importance
 fig, ax = plt.subplots()
 importance_df.plot(kind='bar', x='Feature', y='Importance', ax=ax)
 st.pyplot(fig)
+
 
 
 
