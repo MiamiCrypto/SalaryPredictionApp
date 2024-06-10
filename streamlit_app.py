@@ -2,46 +2,33 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-from sklearn.ensemble import RandomForestRegressor
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the model
-model = pickle.load(open('random_forest_model.pkl', 'rb'))
-
-# # Set the background color
-# st.markdown(
-#     """
-#     <style>
-#     .stApp {
-#         background-color: black;
-#         color: white;
-#     }
-#     </style>
-#     """,
-#     unsafe_allow_html=True
-# )
+model = pickle.load(open('/mnt/data/random_forest_model.pkl', 'rb'))
 
 # App title
 st.title("Salary Prediction App")
 
-# Display the image centered
-st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
-
 # Sidebar for user input
 st.sidebar.header("User Input Parameters")
 
+# Define user input function based on known features
 def user_input_features():
-    # Assuming these are the parameters required for prediction
-    # Adjust according to your model
+    # Adjust these according to your dataset features
     age = st.sidebar.slider('Age', 18, 70, 30)
     experience = st.sidebar.slider('Years of Experience', 0, 50, 5)
-    education = st.sidebar.selectbox('Education Level', ('High School', 'Bachelor', 'Master', 'PhD'))
-    location = st.sidebar.selectbox('Location', ('Urban', 'Suburban', 'Rural'))
+    job_level = st.sidebar.selectbox('Job Level', ('Entry', 'Mid', 'Senior'))
+    department = st.sidebar.selectbox('Department', ('Sales', 'Engineering', 'HR', 'Finance'))
+
     data = {
         'age': age,
         'experience': experience,
-        'education': education,
-        'location': location
+        'job_level': job_level,
+        'department': department
     }
+
     features = pd.DataFrame(data, index=[0])
     return features
 
@@ -51,6 +38,14 @@ df = user_input_features()
 st.subheader('User Input parameters')
 st.write(df)
 
+# One-hot encoding for categorical features
+df = pd.get_dummies(df)
+
+# Align the dataframe with the model's expected input
+model_columns = ['age', 'experience', 'job_level_Entry', 'job_level_Mid', 'job_level_Senior',
+                 'department_Sales', 'department_Engineering', 'department_HR', 'department_Finance']
+df = df.reindex(columns=model_columns, fill_value=0)
+
 # Prediction
 prediction = model.predict(df)
 st.subheader('Prediction')
@@ -59,13 +54,39 @@ st.write(f"Predicted Salary: ${prediction[0]:,.2f}")
 # Dashboard Section
 st.subheader('Dashboard')
 
-# Example plot (customize as needed)
-import matplotlib.pyplot as plt
-
+# Example plot: Distribution of salaries
+salaries = np.random.normal(loc=50000, scale=15000, size=1000)  # Replace with actual salary data
 fig, ax = plt.subplots()
-ax.barh(['High School', 'Bachelor', 'Master', 'PhD'], [30, 40, 50, 60], color='skyblue')
-ax.set_xlabel('Average Salary (k)')
+sns.histplot(salaries, kde=True, ax=ax)
+ax.set_title('Distribution of Salaries')
+ax.set_xlabel('Salary')
+ax.set_ylabel('Frequency')
 st.pyplot(fig)
+
+# Example plot: Average salary by department
+avg_salary_by_dept = pd.DataFrame({
+    'Department': ['Sales', 'Engineering', 'HR', 'Finance'],
+    'Average Salary': [55000, 65000, 45000, 60000]  # Replace with actual data
+})
+fig, ax = plt.subplots()
+sns.barplot(x='Average Salary', y='Department', data=avg_salary_by_dept, ax=ax)
+ax.set_title('Average Salary by Department')
+ax.set_xlabel('Average Salary')
+ax.set_ylabel('Department')
+st.pyplot(fig)
+
+# Example plot: Average salary by job level
+avg_salary_by_level = pd.DataFrame({
+    'Job Level': ['Entry', 'Mid', 'Senior'],
+    'Average Salary': [40000, 60000, 80000]  # Replace with actual data
+})
+fig, ax = plt.subplots()
+sns.barplot(x='Average Salary', y='Job Level', data=avg_salary_by_level, ax=ax)
+ax.set_title('Average Salary by Job Level')
+ax.set_xlabel('Average Salary')
+ax.set_ylabel('Job Level')
+st.pyplot(fig)
+
 
 
 
