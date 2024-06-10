@@ -7,58 +7,19 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Set the page configuration
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="auto")
+st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="expanded")
 
 # Custom CSS for dark mode
 dark_mode_css = """
     <style>
-    body {
+    body, .stApp {
         background-color: #0e1117;
-        color: #cfcfcf;
+        color: #ffffff;
     }
-    .css-1d391kg, .css-1d391kg, .css-1nv0d2y, .css-1nv0d2y, .css-1v3fvcr, .css-1v3fvcr {
-        color: #cfcfcf;
+    .css-1d391kg, .css-1nv0d2y, .css-1v3fvcr, .css-2trqyj, .css-12oz5g7, .css-1lypyze, .css-1rs6os, .css-1vbkxwb, .css-1grh8ro {
+        color: #ffffff;
     }
-    .css-1d3w5w1, .css-1d3w5w1 {
-        background-color: #0e1117;
-    }
-    .css-1pxd2dn, .css-1pxd2dn {
-        background-color: #1e222a;
-    }
-    .css-1a32fsj, .css-1a32fsj {
-        background-color: #0e1117;
-    }
-    .css-2trqyj, .css-2trqyj {
-        color: #cfcfcf;
-    }
-    .css-12oz5g7, .css-12oz5g7 {
-        color: #cfcfcf;
-    }
-    .css-1lypyze, .css-1lypyze {
-        color: #cfcfcf;
-    }
-    .css-1rs6os, .css-1rs6os {
-        color: #cfcfcf;
-    }
-    .css-1vbkxwb, .css-1vbkxwb {
-        color: #cfcfcf;
-    }
-    .css-1hfz7xv, .css-1hfz7xv {
-        background-color: #0e1117;
-    }
-    .css-1l5zk5j, .css-1l5zk5j {
-        background-color: #0e1117;
-    }
-    .css-18ni7ap, .css-18ni7ap {
-        background-color: #0e1117;
-    }
-    .css-1grh8ro, .css-1grh8ro {
-        color: #cfcfcf;
-    }
-    .stApp {
-        background-color: #0e1117;
-    }
-    .css-1cpxqw2, .css-1cpxqw2 {
+    .css-1d3w5w1, .css-1pxd2dn, .css-1a32fsj, .css-1hfz7xv, .css-1l5zk5j, .css-18ni7ap, .css-1cpxqw2 {
         background-color: #0e1117;
     }
     </style>
