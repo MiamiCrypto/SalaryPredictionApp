@@ -18,7 +18,7 @@ else:
     st.error(f"CSV file not found: {csv_file_path}")
 
 # Load the trained model
-model_file_path = '/mnt/data/random_forest_model.pkl'
+model_file_path = 'random_forest_model.pkl'
 if os.path.exists(model_file_path):
     with open(model_file_path, 'rb') as file:
         model = pickle.load(file)
@@ -45,7 +45,7 @@ st.title("Salary Prediction App")
 st.header("Enter the values for the following features to predict the salary")
 
 # Display the image smaller and centered
-st.image("salaryprediction.png", width=150, caption="Predict your future Salary", use_column_width='auto')
+st.image("salaryprediction.png", width=150, caption="Predict your future Salary")
 
 # Input fields for the features
 input_data = {}
