@@ -122,15 +122,6 @@ ax.pie(major_counts, labels=major_counts.index, autopct='%1.1f%%', startangle=90
 ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 st.pyplot(fig)
 
-# Visualizing Graduated Distribution
-st.header("Distribution of Graduated")
-graduated_counts = students_data['Graduated'].value_counts()
-
-fig, ax = plt.subplots()
-ax.pie(graduated_counts, labels=['Graduated', 'Not Graduated'], autopct='%1.1f%%', startangle=90, colors=sns.color_palette('viridis', 2))
-ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-st.pyplot(fig)
-
 # Visualizing GPA Distribution and Average Salary by Major side by side
 st.header("GPA Distribution and Average Salary by Major")
 
@@ -147,7 +138,9 @@ with col1:
 
 with col2:
     st.subheader("Average Salary by Major with at least 10 Skills")
-    students_data['Skill_Count'] = students_data[features['Skills']].sum(axis=1)
+    # Ensure all skill columns exist
+    existing_skills = [skill for skill in features['Skills'] if skill in students_data.columns]
+    students_data['Skill_Count'] = students_data[existing_skills].sum(axis=1)
     filtered_data = students_data[students_data['Skill_Count'] >= 10]
     avg_salary_by_major = filtered_data.groupby('Major')['Salary'].mean().reset_index()
     
@@ -157,8 +150,6 @@ with col2:
     ax.set_xlabel('Average Salary')
     ax.set_ylabel('Major')
     st.pyplot(fig)
-
-
 
 
 # import streamlit as st
