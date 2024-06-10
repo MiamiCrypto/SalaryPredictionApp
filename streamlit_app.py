@@ -6,19 +6,37 @@ import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Set the page configuration for dark mode
-#st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="expanded")
-#st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="collapsed")
+# Set the page configuration
 st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="auto")
+
+# Custom CSS for dark mode
+dark_mode_css = """
+    <style>
+    body {
+        background-color: #0e1117;
+        color: #cfcfcf;
+    }
+    .css-1d391kg, .css-1d391kg, .css-1nv0d2y, .css-1nv0d2y, .css-1v3fvcr, .css-1v3fvcr {
+        color: #cfcfcf;
+    }
+    .css-1d3w5w1, .css-1d3w5w1 {
+        background-color: #0e1117;
+    }
+    .css-1pxd2dn, .css-1pxd2dn {
+        background-color: #1e222a;
+    }
+    </style>
+"""
+st.markdown(dark_mode_css, unsafe_allow_html=True)
 
 # Custom CSS to hide the "Made with Streamlit" watermark
 hide_streamlit_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+"""
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Load the original dataset to get the mean and standard deviation of the salary
