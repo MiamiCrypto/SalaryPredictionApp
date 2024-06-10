@@ -82,6 +82,10 @@ st.header("Enter the values for the following features to predict the salary")
 
 # Display the image smaller and centered
 st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
+st.markdown("</div>", unsafe_allow_html=True)
+
+# Display the image smaller and centered
+#st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
 # Input fields for the features
 input_data = {}
