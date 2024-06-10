@@ -137,23 +137,15 @@ with col1:
     st.pyplot(fig)
 
 with col2:
-    st.subheader("Average Salary by Major with at least 10 Skills")
-    # Ensure all skill columns exist
-    existing_skills = [skill for skill in features['Skills'] if skill in students_data.columns]
-    students_data['Skill_Count'] = students_data[existing_skills].sum(axis=1)
-    filtered_data = students_data[students_data['Skill_Count'] >= 10]
+    st.subheader("Average Salary by Major")
+    avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
     
-    if not filtered_data.empty:
-        avg_salary_by_major = filtered_data.groupby('Major')['Salary'].mean().reset_index()
-        
-        fig, ax = plt.subplots()
-        sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, palette='viridis', ax=ax)
-        ax.set_title('Average Salary by Major with at least 10 Skills')
-        ax.set_xlabel('Average Salary')
-        ax.set_ylabel('Major')
-        st.pyplot(fig)
-    else:
-        st.write("No data available for students with at least 10 skills.")
+    fig, ax = plt.subplots()
+    sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, palette='viridis', ax=ax)
+    ax.set_title('Average Salary by Major')
+    ax.set_xlabel('Average Salary')
+    ax.set_ylabel('Major')
+    st.pyplot(fig)
 
 
 
