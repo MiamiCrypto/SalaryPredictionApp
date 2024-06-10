@@ -7,8 +7,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# Set the page configuration
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="auto")
+col1, col2, col3= st.columns(3)
+# Display the image smaller and centered
+
+with col1:
+    # Set the page configuration
+    st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="auto")
 
 # # Custom CSS for dark mode
 # dark_mode_css = """
@@ -76,14 +80,15 @@ features = {
 # Mapping for major codes to names
 major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
 
-# Streamlit UI
-st.title("Salary Prediction Dashboard")
-st.header("Enter the values for the following features to predict the salary")
+with col2:
+    # Streamlit UI
+    st.title("Salary Prediction Dashboard")
+    st.header("Enter the values for the following features to predict the salary")
 
-col1, col2, col3= st.columns(3)
+#col1, col2, col3= st.columns(3)
 # Display the image smaller and centered
 
-with col2:
+with col3:
     st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
     st.markdown("</div>", unsafe_allow_html=True)
 
