@@ -2,99 +2,37 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-import matplotlib.pyplot as plt
 
-# Load the trained model with error handling
-try:
-    with open('best_gradient_boosting_model.pkl', 'rb') as file:
-        model = pickle.load(file)
-except FileNotFoundError:
-    st.error("Model file not found. Please ensure 'best_gradient_boosting_model.pkl' exists in the directory.")
-    st.stop()
-except Exception as e:
-    st.error(f"An error occurred while loading the model: {e}")
-    st.stop()
+# Load the trained model
+with open('random_forest_model.pkl', 'rb') as file:
+    model = pickle.load(file)
 
-# Load the dataset to get feature information
-data = pd.read_csv('https://raw.githubusercontent.com/MiamiCrypto/Capstone-Project-/main/Balanced_Graduated_Data.csv')
+# Define the features
+features = ['GPA', 'Coding Skills', 'Machine Learning', 'Age', 'App Dev', 'Backend', 'Creativity', 'Presentation Skills', 'Problem Solving',
+            'Budget Management', 'Business Understanding', 'Collaboration', 'Data Science', 'Decision Making', 'Improvement',
+            'Data Driven Decision Making', 'Attention to Detail', 'Programming Languages']
 
-# Convert boolean to integer for 'Graduated' column
-data['Graduated'] = data['Graduated'].astype(int)
-
-# Define numeric and categorical features
-numeric_features = ['Number_of_Skills', 'GPA']
-categorical_features = data.drop(columns=numeric_features + ['Student_ID', 'First_Name', 'Last_Name', 'Email', 'Salary', 'Salary_Range', 'Salary_Binned']).columns.tolist()
-
-# Define preprocessing pipelines
-numeric_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='mean')),
-    ('scaler', StandardScaler())
-])
-
-categorical_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
-    ('onehot', OneHotEncoder(handle_unknown='ignore'))
-])
-
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', numeric_transformer, numeric_features),
-        ('cat', categorical_transformer, categorical_features)
-    ])
-
-# Streamlit application
-st.title('Salary Prediction App')
+# Streamlit UI
+st.title("Salary Prediction App")
+st.header("Enter the values for the following features to predict the salary")
 
 # Display the image centered
 st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
-# Sidebar for user input
-st.sidebar.header('User Input Features')
+# Input fields for the features
+input_data = {}
+for feature in features:
+    input_data[feature] = st.slider(feature, 0.0, 10.0, 5.0) if feature != 'Age' else st.slider(feature, 18, 60, 30)
 
-def user_input_features():
-    Number_of_Skills = st.sidebar.slider('Number of Skills', 1, 50, 10)
-    GPA = st.sidebar.slider('GPA', 0.0, 4.0, 3.0)
-    Graduated = st.sidebar.selectbox('Graduated', [0, 1])
-    
-    feature_dict = {'Number_of_Skills': Number_of_Skills, 'GPA': GPA, 'Graduated': Graduated}
-    
-    for col in categorical_features:
-        if data[col].nunique() == 2:
-            feature_dict[col] = st.sidebar.selectbox(col, data[col].unique())
-        else:
-            feature_dict[col] = st.sidebar.multiselect(col, data[col].unique(), default=data[col].unique()[0])
-    
-    return pd.DataFrame(feature_dict, index=[0])
+# Convert input data to DataFrame
+input_df = pd.DataFrame([input_data])
 
-df = user_input_features()
+# Predict the salary
+if st.button("Predict Salary"):
+    prediction = model.predict(input_df)
+    st.write(f"Predicted Salary: ${prediction[0]:.2f}")
 
-# Preprocess the input data
-X_input = preprocessor.transform(df)
 
-# Make predictions
-prediction = model.predict(X_input)
-
-# Display the prediction
-st.subheader('Predicted Salary')
-st.write(prediction[0])
-
-# Display charts
-st.subheader('Feature Importance')
-feature_importance = model.feature_importances_
-features = numeric_features + list(preprocessor.transformers_[1][1]['onehot'].get_feature_names_out(categorical_features))
-
-# Create a DataFrame for plotting
-importance_df = pd.DataFrame({'Feature': features, 'Importance': feature_importance})
-importance_df = importance_df.sort_values(by='Importance', ascending=False)
-
-# Plot feature importance
-fig, ax = plt.subplots()
-importance_df.plot(kind='bar', x='Feature', y='Importance', ax=ax)
-st.pyplot(fig)
 
 
 
