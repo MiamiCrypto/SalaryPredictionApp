@@ -36,7 +36,7 @@ features = {
         'Data Driven Decision Making', 'Attention to Detail', 
         'Programming Languages'
     ],
-    'Major': ['Engineering', 'Science', 'Business', 'Arts'],
+    'Major': ['Applied Artificial Intelligence', 'Data Analytics'],
     'Graduated': ['Yes', 'No']
 }
 
