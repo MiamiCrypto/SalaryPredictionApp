@@ -44,7 +44,7 @@ st.title("Salary Prediction App")
 st.header("Enter the values for the following features to predict the salary")
 
 # Display the image centered
-st.image("salaryprediction.png", width=300, caption="Predict your future Salary", use_column_width=False)
+st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
 
 # Input fields for the features
 input_data = {}
