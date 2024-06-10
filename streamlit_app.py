@@ -3,6 +3,11 @@ import pandas as pd
 import numpy as np
 import pickle
 
+# Load the original dataset to get the mean and standard deviation of the salary
+students_data = pd.read_csv('/mnt/data/Balanced_Graduated_Data.csv')
+salary_mean = students_data['Salary'].mean()
+salary_std = students_data['Salary'].std()
+
 # Load the trained model
 with open('random_forest_model.pkl', 'rb') as file:
     model = pickle.load(file)
@@ -55,9 +60,71 @@ input_df = input_df.reindex(columns=expected_features, fill_value=0)
 
 # Predict the salary
 if st.button("Predict Salary"):
-    prediction = model.predict(input_df)
-    st.write(f"Predicted Salary: ${prediction[0]:.2f}")
+    standardized_prediction = model.predict(input_df)
+    original_scale_prediction = standardized_prediction[0] * salary_std + salary_mean
+    st.write(f"Predicted Salary: ${original_scale_prediction:.2f}")
 
+
+
+# import streamlit as st
+# import pandas as pd
+# import numpy as np
+# import pickle
+
+# # Load the trained model
+# with open('random_forest_model.pkl', 'rb') as file:
+#     model = pickle.load(file)
+
+# # Define the features and their possible values
+# features = {
+#     'GPA': (0.0, 4.0, 3.0),
+#     'Skills': [
+#         'Coding Skills', 'Machine Learning', 'App Dev', 'Backend', 
+#         'Creativity', 'Presentation Skills', 'Problem Solving', 
+#         'Budget Management', 'Business Understanding', 'Collaboration', 
+#         'Data Science', 'Decision Making', 'Improvement', 
+#         'Data Driven Decision Making', 'Attention to Detail', 
+#         'Programming Languages'
+#     ]
+# }
+
+# # Streamlit UI
+# st.title("Salary Prediction App")
+# st.header("Enter the values for the following features to predict the salary")
+
+# # Display the image smaller and centered
+# st.image("salaryprediction.png", width=150, caption="Predict your future Salary", use_column_width='auto')
+
+# # Input fields for the features
+# input_data = {}
+
+# # GPA as a slider
+# input_data['GPA'] = st.slider('GPA', *features['GPA'])
+
+# # Skills as a multi-select dropdown
+# selected_skills = st.multiselect('Select Skills', features['Skills'])
+
+# # Initialize all skills to 0 (not selected)
+# for skill in features['Skills']:
+#     input_data[skill] = 0
+
+# # Set selected skills to 1 (selected)
+# for skill in selected_skills:
+#     input_data[skill] = 1
+
+# # Convert input data to DataFrame
+# input_df = pd.DataFrame([input_data])
+
+# # Ensure the input DataFrame has the same columns as the model expects
+# expected_features = model.feature_names_in_
+
+# # Reorder and align the input data to match the expected features
+# input_df = input_df.reindex(columns=expected_features, fill_value=0)
+
+# # Predict the salary
+# if st.button("Predict Salary"):
+#     prediction = model.predict(input_df)
+#     st.write(f"Predicted Salary: ${prediction[0]:.2f}")
 
 
 
