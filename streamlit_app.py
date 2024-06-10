@@ -7,30 +7,61 @@ import pickle
 with open('random_forest_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
-# Define the features
-features = ['GPA', 'Coding Skills', 'Machine Learning', 'Age', 'App Dev', 'Backend', 'Creativity', 'Presentation Skills', 'Problem Solving',
-            'Budget Management', 'Business Understanding', 'Collaboration', 'Data Science', 'Decision Making', 'Improvement',
-            'Data Driven Decision Making', 'Attention to Detail', 'Programming Languages']
+# Define the features and their possible values
+features = {
+    'GPA': (0.0, 4.0, 3.0),
+    'Age': (18, 60, 30),
+    'Coding Skills': ['Beginner', 'Intermediate', 'Advanced'],
+    'Machine Learning': ['Beginner', 'Intermediate', 'Advanced'],
+    'App Dev': ['Beginner', 'Intermediate', 'Advanced'],
+    'Backend': ['Beginner', 'Intermediate', 'Advanced'],
+    'Creativity': ['Low', 'Medium', 'High'],
+    'Presentation Skills': ['Low', 'Medium', 'High'],
+    'Problem Solving': ['Low', 'Medium', 'High'],
+    'Budget Management': ['Low', 'Medium', 'High'],
+    'Business Understanding': ['Low', 'Medium', 'High'],
+    'Collaboration': ['Low', 'Medium', 'High'],
+    'Data Science': ['Low', 'Medium', 'High'],
+    'Decision Making': ['Low', 'Medium', 'High'],
+    'Improvement': ['Low', 'Medium', 'High'],
+    'Data Driven Decision Making': ['Low', 'Medium', 'High'],
+    'Attention to Detail': ['Low', 'Medium', 'High'],
+    'Programming Languages': ['Beginner', 'Intermediate', 'Advanced']
+}
+
+# Mapping of skill levels to numerical values
+skill_mapping = {
+    'Beginner': 1,
+    'Intermediate': 2,
+    'Advanced': 3,
+    'Low': 1,
+    'Medium': 2,
+    'High': 3
+}
 
 # Streamlit UI
 st.title("Salary Prediction App")
 st.header("Enter the values for the following features to predict the salary")
 
 # Display the image centered
-st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
+st.image("salaryprediction.png", width=300, caption="Predict your future Salary", use_column_width='auto')
 
 # Input fields for the features
 input_data = {}
-for feature in features:
-    input_data[feature] = st.slider(feature, 0.0, 10.0, 5.0) if feature != 'Age' else st.slider(feature, 18, 60, 30)
+for feature, values in features.items():
+    if isinstance(values, tuple):
+        input_data[feature] = st.slider(feature, *values)
+    else:
+        input_data[feature] = st.selectbox(feature, values)
 
 # Convert input data to DataFrame
-input_df = pd.DataFrame([input_data])
+input_df = pd.DataFrame([{feature: skill_mapping.get(value, value) for feature, value in input_data.items()}])
 
 # Predict the salary
 if st.button("Predict Salary"):
     prediction = model.predict(input_df)
     st.write(f"Predicted Salary: ${prediction[0]:.2f}")
+
 
 
 
