@@ -7,12 +7,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-col1, col2, col3= st.columns(3)
+#col1, col2, col3= st.columns(3)
 # Display the image smaller and centered
 
-with col2:
-    # Set the page configuration
-    st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="auto")
+#with col2:
+# Set the page configuration
+st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="auto")
 
 # # Custom CSS for dark mode
 # dark_mode_css = """
