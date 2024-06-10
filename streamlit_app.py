@@ -49,6 +49,12 @@ for skill in selected_skills:
 # Convert input data to DataFrame
 input_df = pd.DataFrame([input_data])
 
+# Ensure the input DataFrame has the same columns as the model expects
+expected_features = model.feature_names_in_
+
+# Reorder and align the input data to match the expected features
+input_df = input_df.reindex(columns=expected_features, fill_value=0)
+
 # Predict the salary
 if st.button("Predict Salary"):
     prediction = model.predict(input_df)
