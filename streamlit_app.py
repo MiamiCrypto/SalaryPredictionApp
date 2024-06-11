@@ -209,7 +209,7 @@ st.image("Salary Distribution by Major.png", caption="")
 #with col2:
 st.subheader("GPA vs Salary")
 # Display the image using its actual size
-st.image("GPA vs Salary.png", width = 650, caption="Indicating that higher GPAs generally correlate with higher salaries.")
+st.image("GPA vs Salary.png", width = 650, caption="")
 
 #col1, col2 = st.columns(2)
 #with col1:
