@@ -229,6 +229,11 @@ st.pyplot(fig)
 st.image("Correlation Heatmap.png", caption="")
 
 st.subheader("Skills Frequency Word Cloud")
+# Description text
+description_text = """
+Highlights the most prevalent skills in the dataset, such as Collaboration and Presentation Skills.
+"""
+st.markdown(description_text)
 # Display the image using its actual size
 st.image("Skills Frequency Word Cloud.png", caption="")
 
