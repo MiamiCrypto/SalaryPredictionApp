@@ -243,7 +243,11 @@ ax.set_title('Correlation Heatmap of Top Features')
 st.pyplot(fig)
 
 # Display the image using its actual size
-st.image("Correlation Heatmap.png", caption="Correlation Heatmap")
+st.image("Correlation Heatmap.png", caption="")
+
+st.subheader("Skills Distribution by Major")
+# Display the image using its actual size
+st.image("Skills Distribution by Major.png", caption="")
 
 # Number of skills by major
 st.subheader("Number of Skills by Major")
@@ -260,9 +264,7 @@ st.subheader("GPA vs Salary")
 # Display the image using its actual size
 st.image("GPA vs Salary.png", caption="")
 
-st.subheader("Skills Distribution by Major")
-# Display the image using its actual size
-st.image("Skills Distribution by Major.png", caption="")
+
 
 
 
