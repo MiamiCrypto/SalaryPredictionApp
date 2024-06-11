@@ -203,11 +203,11 @@ col1, col2 = st.columns(2)
 with col1:
     st.subheader("Salary Distribution by Major")
     # Display the image using its actual size
-    st.image("Salary Distribution by Major.png", width = 700, caption="")
+    st.image("Salary Distribution by Major.png", width = , caption="")
 with col2:
     st.subheader("GPA vs Salary")
     # Display the image using its actual size
-    st.image("GPA vs Salary.png", width = 700, caption="")
+    st.image("GPA vs Salary.png", width = 650, caption="")
 
 col1, col2 = st.columns(2)
 with col1:
