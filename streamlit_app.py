@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 
 # Set the page configuration
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Fortune Teller", page_icon="💼", layout="centered", initial_sidebar_state="collapsed")
 
 # # Custom CSS for dark mode
 # dark_mode_css = """
@@ -80,7 +80,7 @@ major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
 
 # Streamlit UI
 st.markdown("<h1 style='text-align: center; color: ;'>Salary Prediction Dashboard</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center; font-weight: normal;'>Fill in the features to predict your salary</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; font-weight: normal;'>Crystal Clear Salary Forecast</h3>", unsafe_allow_html=True)
 #st.title("Salary Prediction Dashboard")
 #st.header("<h1 style='text-align: center; color: ; '>Enter the values for the following features to predict the salary</h1>", unsafe_allow_html=True)
 
