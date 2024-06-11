@@ -250,61 +250,90 @@ st.write(f"F1 Score: {f1:.2f}")
 st.header("Technical Architecture")
 st.image("salaryprediction.png", caption="Project Technical Architecture")
 
-# Demo Section
-st.header("Demo of Findings and Insights")
 
-# Skill Distribution by Major
-st.subheader("Skill Distribution by Major")
-if 'Skills' in students_data.columns:
-    students_data['Skills'] = students_data['Skills'].apply(lambda x: x.split(',') if isinstance(x, str) else [])
-    exploded_skills = students_data.explode('Skills')
-    fig, ax = plt.subplots(figsize=(12, 8))
-    sns.countplot(y='Major', hue='Skills', data=exploded_skills, ax=ax)
-    ax.set_title('Skill Distribution by Major')
-    st.pyplot(fig)
-else:
-    st.write("Skills column not found in the dataset.")
+# Technical architecture diagram
+st.header("Project Technical Architecture")
+st.image("architecture_diagram.png", caption="Project Technical Architecture")
 
-# Correlation Heatmap
-st.subheader("Correlation Heatmap")
-corr = students_data.corr()
-fig, ax = plt.subplots(figsize=(12, 8))
-sns.heatmap(corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
-ax.set_title('Correlation Heatmap')
+# Additional Visualizations
+st.header("Additional Visualizations")
+
+# Correlation heatmap for top features
+st.subheader("Correlation Heatmap of Top Features")
+corr_matrix = students_data.corr()
+top_features = corr_matrix['Salary'].abs().sort_values(ascending=False).head(10).index
+top_corr = students_data[top_features].corr()
+
+fig, ax = plt.subplots(figsize=(12, 10))
+sns.heatmap(top_corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
+ax.set_title('Correlation Heatmap of Top Features')
 st.pyplot(fig)
 
-# Average Salary by Skills
-st.subheader("Average Salary by Skills")
-if 'Skills' in exploded_skills.columns:
-    avg_salary_by_skill = exploded_skills.groupby('Skills')['Salary'].mean().reset_index()
-    fig, ax = plt.subplots(figsize=(12, 8))
-    sns.barplot(x='Salary', y='Skills', data=avg_salary_by_skill, palette='viridis', ax=ax)
-    ax.set_title('Average Salary by Skills')
-    st.pyplot(fig)
-else:
-    st.write("Skills column not found in the dataset.")
-
-# GPA vs. Salary Scatter Plot
-st.subheader("GPA vs. Salary")
-fig, ax = plt.subplots(figsize=(12, 8))
-sns.scatterplot(x='GPA', y='Salary', data=students_data, ax=ax)
-ax.set_title('GPA vs. Salary')
+# Number of skills by major
+st.subheader("Number of Skills by Major")
+fig, ax = plt.subplots(figsize=(12, 6))
+sns.countplot(y='Major', data=students_data, palette='viridis', ax=ax)
+ax.set_title('Number of Skills by Major')
+ax.set_xlabel('Count')
+ax.set_ylabel('Major')
 st.pyplot(fig)
 
-# Skills Impact on Salary
-st.subheader("Skills Impact on Salary")
-if 'Number_of_Skills' in students_data.columns:
-    avg_salary_by_skill_count = students_data.groupby('Number_of_Skills')['Salary'].mean().reset_index()
-    fig, ax = plt.subplots(figsize=(12, 8))
-    sns.barplot(x='Salary', y='Number_of_Skills', data=avg_salary_by_skill_count, palette='viridis', ax=ax)
-    ax.set_title('Skills Impact on Salary')
-    st.pyplot(fig)
-else:
-    st.write("Number_of_Skills column not found in the dataset.")
 
-# Conclusion
-st.header("Conclusion")
-st.markdown("""
-- **Key Takeaways:** [List key takeaways here]
-- **Future Work:** [Outline potential future work here]
-""")
+# # Demo Section
+# st.header("Demo of Findings and Insights")
+
+# # Skill Distribution by Major
+# st.subheader("Skill Distribution by Major")
+# if 'Skills' in students_data.columns:
+#     students_data['Skills'] = students_data['Skills'].apply(lambda x: x.split(',') if isinstance(x, str) else [])
+#     exploded_skills = students_data.explode('Skills')
+#     fig, ax = plt.subplots(figsize=(12, 8))
+#     sns.countplot(y='Major', hue='Skills', data=exploded_skills, ax=ax)
+#     ax.set_title('Skill Distribution by Major')
+#     st.pyplot(fig)
+# else:
+#     st.write("Skills column not found in the dataset.")
+
+# # Correlation Heatmap
+# st.subheader("Correlation Heatmap")
+# corr = students_data.corr()
+# fig, ax = plt.subplots(figsize=(12, 8))
+# sns.heatmap(corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
+# ax.set_title('Correlation Heatmap')
+# st.pyplot(fig)
+
+# # Average Salary by Skills
+# st.subheader("Average Salary by Skills")
+# if 'Skills' in exploded_skills.columns:
+#     avg_salary_by_skill = exploded_skills.groupby('Skills')['Salary'].mean().reset_index()
+#     fig, ax = plt.subplots(figsize=(12, 8))
+#     sns.barplot(x='Salary', y='Skills', data=avg_salary_by_skill, palette='viridis', ax=ax)
+#     ax.set_title('Average Salary by Skills')
+#     st.pyplot(fig)
+# else:
+#     st.write("Skills column not found in the dataset.")
+
+# # GPA vs. Salary Scatter Plot
+# st.subheader("GPA vs. Salary")
+# fig, ax = plt.subplots(figsize=(12, 8))
+# sns.scatterplot(x='GPA', y='Salary', data=students_data, ax=ax)
+# ax.set_title('GPA vs. Salary')
+# st.pyplot(fig)
+
+# # Skills Impact on Salary
+# st.subheader("Skills Impact on Salary")
+# if 'Number_of_Skills' in students_data.columns:
+#     avg_salary_by_skill_count = students_data.groupby('Number_of_Skills')['Salary'].mean().reset_index()
+#     fig, ax = plt.subplots(figsize=(12, 8))
+#     sns.barplot(x='Salary', y='Number_of_Skills', data=avg_salary_by_skill_count, palette='viridis', ax=ax)
+#     ax.set_title('Skills Impact on Salary')
+#     st.pyplot(fig)
+# else:
+#     st.write("Number_of_Skills column not found in the dataset.")
+
+# # Conclusion
+# st.header("Conclusion")
+# st.markdown("""
+# - **Key Takeaways:** [List key takeaways here]
+# - **Future Work:** [Outline potential future work here]
+# """)
