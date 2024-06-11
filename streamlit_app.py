@@ -274,7 +274,7 @@ ax.set_xlabel('Count')
 ax.set_ylabel('Major')
 st.pyplot(fig)
 
-# List of skill columns
+# Adjust the skills list based on the actual columns available in the DataFrame
 skills = [
     'Coding Skills', 'Machine Learning', 'App Dev', 'Backend', 
     'Creativity', 'Presentation Skills', 'Problem Solving', 
