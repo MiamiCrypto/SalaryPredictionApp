@@ -203,11 +203,29 @@ with col2:
 
 #with col1:
 st.subheader("Salary Distribution by Major")
+
+# Description text
+description_text = """
+<div style='text-align: center; font-size:12px;'>
+Applied Artificial Intelligence shows a higher median salary compared to Data Analytics.
+<div>
+"""
+st.markdown(description_text, unsafe_allow_html=True)
+
 # Display the image using its actual size
 st.image("Salary Distribution by Major.png", caption="")
 
 #with col2:
 st.subheader("GPA vs Salary")
+
+# Description text
+description_text = """
+<div style='text-align: center; font-size:12px;'>
+Indicating that higher GPAs generally correlate with higher salaries.
+<div>
+"""
+st.markdown(description_text, unsafe_allow_html=True)
+
 # Display the image using its actual size
 st.image("GPA vs Salary.png", width = 650, caption="")
 
@@ -236,6 +254,7 @@ Highlights the most prevalent skills in the dataset, such as Collaboration and P
 <div>
 """
 st.markdown(description_text, unsafe_allow_html=True)
+
 # Display the image using its actual size
 st.image("Skills Frequency Word Cloud.png", caption="")
 
