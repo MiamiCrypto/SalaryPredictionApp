@@ -274,6 +274,16 @@ ax.set_xlabel('Count')
 ax.set_ylabel('Major')
 st.pyplot(fig)
 
+# List of skill columns
+skills = [
+    'Coding Skills', 'Machine Learning', 'App Dev', 'Backend', 
+    'Creativity', 'Presentation Skills', 'Problem Solving', 
+    'Budget Management', 'Business Understanding', 'Collaboration', 
+    'Data Science', 'Decision Making', 'Improvement', 
+    'Data Driven Decision Making', 'Attention to Detail', 
+    'Programming Languages'
+]
+
 # Calculate the average number of skills per student by major
 students_data['Number_of_Skills'] = students_data[skills].sum(axis=1)
 avg_skills_by_major = students_data.groupby('Major')['Number_of_Skills'].mean().reset_index()
@@ -286,5 +296,6 @@ ax.set_title('Average Number of Skills by Major')
 ax.set_xlabel('Average Number of Skills')
 ax.set_ylabel('Major')
 st.pyplot(fig)
+
 
 
