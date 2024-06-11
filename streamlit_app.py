@@ -198,50 +198,31 @@ with col2:
     ax.set_ylabel('Frequency')
     st.pyplot(fig)
 
-# st.header("Average Salary by Major")
-# #avg_salary_by_major = students_data.groupby('Major')['Salary'].mean().reset_index()
-# avg_salary_by_major = students_data.groupby('Major')[['Salary', 'Salary_Binned', 'Graduated']].mean().reset_index()
+col1, col2 = st.columns(2)
 
+with col1:
+    st.subheader("Salary Distribution by Major")
+    # Display the image using its actual size
+    st.image("Salary Distribution by Major.png", caption="")
+with col2:
+    st.subheader("GPA vs Salary")
+    # Display the image using its actual size
+    st.image("GPA vs Salary.png", caption="")
 
-# # Debugging: Print the DataFrame to ensure it looks correct
-# st.write("Average Salary by Major DataFrame:")
-# st.write(avg_salary_by_major)
-
-# if not avg_salary_by_major.empty:
-#     # Plotting the bar plot for average salary by major
-#     fig, ax = plt.subplots(figsize=(10, 6))
-#     sns.barplot(x='Salary', y='Major', data=avg_salary_by_major, palette='viridis', ax=ax)
-#     ax.set_title('Average Salary by Major')
-#     ax.set_xlabel('Average Salary')
-#     ax.set_ylabel('Major')
-#     st.pyplot(fig)
-# else:
-#     st.write("No data available to display the average salary by major.")
-
-st.subheader("Salary Distribution by Major")
-# Display the image using its actual size
-st.image("Salary Distribution by Major.png", caption="")
-
-st.subheader("GPA vs Salary")
-# Display the image using its actual size
-st.image("GPA vs Salary.png", caption="")
-
-############################################################################
-# This part is for the presentation
-
-# Additional Visualizations
-st.header("Additional Visualizations")
-
-# Correlation heatmap for top features
-st.subheader("Correlation Heatmap of Top Features")
-corr_matrix = students_data.corr()
-top_features = corr_matrix['Salary'].abs().sort_values(ascending=False).head(10).index
-top_corr = students_data[top_features].corr()
-
-fig, ax = plt.subplots(figsize=(12, 10))
-sns.heatmap(top_corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
-ax.set_title('Correlation Heatmap of Top Features')
-st.pyplot(fig)
+col1, col2 = st.columns(2)
+with col1:
+    
+    # Correlation heatmap for top features
+    st.subheader("Correlation Heatmap of Top Features")
+    corr_matrix = students_data.corr()
+    top_features = corr_matrix['Salary'].abs().sort_values(ascending=False).head(10).index
+    top_corr = students_data[top_features].corr()
+    
+with col2:
+    fig, ax = plt.subplots(figsize=(12, 10))
+    sns.heatmap(top_corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
+    ax.set_title('Correlation Heatmap of Top Features')
+    st.pyplot(fig)
 
 # Display the image using its actual size
 st.image("Correlation Heatmap.png", caption="")
