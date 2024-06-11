@@ -90,7 +90,7 @@ st.markdown("<h3 style='text-align: center; font-weight: normal;'>Crystal Clear 
 #with col2:
 
 # Display the image smaller and centered
-st.image("salarycrystalball.png", width=700, caption="Predict your future Salary")
+st.image("salarycrystalball.png", width=700, caption="")
 
 # Input fields for the features
 input_data = {}
