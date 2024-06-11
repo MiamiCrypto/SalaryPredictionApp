@@ -253,23 +253,19 @@ st.subheader("Skills Distribution by Major")
 # Display the image using its actual size
 st.image("Skills Distribution by Major.png", caption="")
 
-# Number of skills by major
-st.subheader("Number of Skills by Major")
-fig, ax = plt.subplots(figsize=(12, 6))
-sns.countplot(y='Major', data=students_data, palette='viridis', ax=ax)
-ax.set_title('Number of Skills by Major')
-ax.set_xlabel('Count')
-ax.set_ylabel('Major')
-st.pyplot(fig)
+col1, col2 = st.columns(2)
 
-st.subheader("Skills Distribution Word Cloud")
-# Display the image using its actual size
-st.image("Skills Frequency Word Cloud.png", caption="")
-
-############################################################
-
-
-
-
-
+with col1:
+    # Number of skills by major
+    st.subheader("Number of Skills by Major")
+    fig, ax = plt.subplots(figsize=(12, 6))
+    sns.countplot(y='Major', data=students_data, palette='viridis', ax=ax)
+    ax.set_title('Number of Skills by Major')
+    ax.set_xlabel('Count')
+    ax.set_ylabel('Major')
+    st.pyplot(fig)
+with col2:
+    st.subheader("Skills Distribution Word Cloud")
+    # Display the image using its actual size
+    st.image("Skills Frequency Word Cloud.png", caption="")
 
