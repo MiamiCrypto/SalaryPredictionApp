@@ -14,23 +14,6 @@ st.set_page_config(page_title="Fortune Teller", page_icon="💼", layout="center
 # Display the custom text box
 st.markdown(text_box_html, unsafe_allow_html=True)
 
-# # Custom CSS for dark mode
-# dark_mode_css = """
-#     <style>
-#     body, .stApp {
-#         background-color: #0e1117;
-#         color: #ffffff;
-#     }
-#     .css-1d391kg, .css-1nv0d2y, .css-1v3fvcr, .css-2trqyj, .css-12oz5g7, .css-1lypyze, .css-1rs6os, .css-1vbkxwb, .css-1grh8ro {
-#         color: #ffffff;
-#     }
-#     .css-1d3w5w1, .css-1pxd2dn, .css-1a32fsj, .css-1hfz7xv, .css-1l5zk5j, .css-18ni7ap, .css-1cpxqw2 {
-#         background-color: #0e1117;
-#     }
-#     </style>
-# """
-# st.markdown(dark_mode_css, unsafe_allow_html=True)
-
 # Custom CSS to hide the "Made with Streamlit" watermark
 hide_streamlit_style = """
     <style>
@@ -93,19 +76,19 @@ st.markdown("<h3 style='text-align: center; font-weight: normal;'>Crystal Clear 
 # Display the image smaller and centered
 st.image("salarycrystalball.png", width=700, caption="")
 
-# Custom HTML and CSS for the text box with light blue background color
-text_box_html = """
-<div style="background-color: #e6f2ff; padding: 20px; border-radius: 10px; width: 100%;">
-    <h2 style="text-align: center; color: #333333;">About us</h2>
-    <p style="text-align: center; color: #333333;">
-        Our company, WageWizard, is developing a predictive salary analysis platform to help tech industry professionals forecast their future earnings with advanced machine learning algorithms.<br><br>
-        We compete in the growing salary prediction market, which last year was a $2 billion value market.<br><br>
-        We are similar to Payscale and Glassdoor, but we provide more accurate predictions by incorporating a comprehensive set of skills and educational background data.<br><br>
-        Currently, we have a fully functional predictive model, an interactive dashboard, and a growing user base.<br><br>
-        We are looking for funding and strategic partnerships to help us expand our data sources, enhance model accuracy, and scale our platform.
-    </p>
-</div>
-"""
+# # Custom HTML and CSS for the text box with light blue background color
+# text_box_html = """
+# <div style="background-color: #e6f2ff; padding: 20px; border-radius: 10px; width: 100%;">
+#     <h2 style="text-align: center; color: #333333;">About us</h2>
+#     <p style="text-align: center; color: #333333;">
+#         Our company, WageWizard, is developing a predictive salary analysis platform to help tech industry professionals forecast their future earnings with advanced machine learning algorithms.<br><br>
+#         We compete in the growing salary prediction market, which last year was a $2 billion value market.<br><br>
+#         We are similar to Payscale and Glassdoor, but we provide more accurate predictions by incorporating a comprehensive set of skills and educational background data.<br><br>
+#         Currently, we have a fully functional predictive model, an interactive dashboard, and a growing user base.<br><br>
+#         We are looking for funding and strategic partnerships to help us expand our data sources, enhance model accuracy, and scale our platform.
+#     </p>
+# </div>
+# """
 
 # Input fields for the features
 input_data = {}
