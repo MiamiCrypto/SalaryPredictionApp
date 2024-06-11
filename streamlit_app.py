@@ -84,15 +84,15 @@ st.markdown("<h3 style='text-align: center; font-weight: normal;'>Fill in the fe
 #st.title("Salary Prediction Dashboard")
 #st.header("<h1 style='text-align: center; color: ; '>Enter the values for the following features to predict the salary</h1>", unsafe_allow_html=True)
 
-col1, col2, col3= st.columns(3)
-# Display the image smaller and centered
+# col1, col2, col3= st.columns(3)
+# # Display the image smaller and centered
 
-with col2:
-    st.image("salarycrystalball.png", width=500, caption="Predict your future Salary")
-#st.markdown("</div>", unsafe_allow_html=True)
+# with col2:
+#     st.image("salarycrystalball.png", width=500, caption="Predict your future Salary")
+# #st.markdown("</div>", unsafe_allow_html=True)
 
 # Display the image smaller and centered
-#st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
+st.image("salarycrystalball.png", width=300, caption="Predict your future Salary")
 
 # Input fields for the features
 input_data = {}
