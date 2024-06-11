@@ -244,16 +244,12 @@ st.write(f"Precision: {precision:.2f}")
 st.write(f"Recall: {recall:.2f}")
 st.write(f"F1 Score: {f1:.2f}")
 
+############################################################################
 # This part is for the presentation
 
 # Technical Architecture
 st.header("Technical Architecture")
 st.image("salaryprediction.png", caption="Project Technical Architecture")
-
-
-# Technical architecture diagram
-st.header("Project Technical Architecture")
-st.image("architecture_diagram.png", caption="Project Technical Architecture")
 
 # Additional Visualizations
 st.header("Additional Visualizations")
