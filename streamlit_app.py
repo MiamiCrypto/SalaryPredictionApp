@@ -147,17 +147,28 @@ if st.button("Show Feature Importances"):
         'Importance': feature_importances
     })
     
-    # Sort the DataFrame by importance
-    importance_df = importance_df.sort_values(by='Importance', ascending=False)
+    # # Sort the DataFrame by importance
+    # importance_df = importance_df.sort_values(by='Importance', ascending=False)
     
+    # # Plotting the bar plot
+    # fig, ax = plt.subplots(figsize=(14, 10))
+    # sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis', ax=ax)
+    # ax.set_title('Feature Importances', fontsize=16)
+    # ax.set_xlabel('Importance', fontsize=14)
+    # ax.set_ylabel('Feature', fontsize=14)
+    # ax.tick_params(axis='y', labelsize=12)
+    # ax.tick_params(axis='x', labelsize=12)
+    # st.pyplot(fig)
+
+    # Sort the DataFrame by importance and select the top 5 features
+    top_importance_df = importance_df.sort_values(by='Importance', ascending=False).head(5)
+
     # Plotting the bar plot
-    fig, ax = plt.subplots(figsize=(14, 10))
-    sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis', ax=ax)
-    ax.set_title('Feature Importances', fontsize=16)
-    ax.set_xlabel('Importance', fontsize=14)
-    ax.set_ylabel('Feature', fontsize=14)
-    ax.tick_params(axis='y', labelsize=12)
-    ax.tick_params(axis='x', labelsize=12)
+    fig, ax = plt.subplots(figsize=(12, 8))
+    sns.barplot(x='Importance', y='Feature', data=top_importance_df, palette='viridis', ax=ax)
+    ax.set_title('Top 5 Feature Importances')
+    ax.set_xlabel('Importance')
+    ax.set_ylabel('Feature')
     st.pyplot(fig)
 
 # Add sections for input data, model parameters, model performance, and prediction results
