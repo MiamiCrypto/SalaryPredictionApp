@@ -262,6 +262,10 @@ ax.set_xlabel('Count')
 ax.set_ylabel('Major')
 st.pyplot(fig)
 
+st.subheader("Skills Distribution Word Cloud")
+# Display the image using its actual size
+st.image("Skills Distribution Word Cloud.png", caption="")
+
 ############################################################
 
 
