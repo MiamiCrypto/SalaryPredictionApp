@@ -207,7 +207,7 @@ with col1:
 with col2:
     st.subheader("GPA vs Salary")
     # Display the image using its actual size
-    st.image("GPA vs Salary.png", width = 500, caption="")
+    st.image("GPA vs Salary.png", width = 700, caption="")
 
 col1, col2 = st.columns(2)
 with col1:
