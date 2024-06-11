@@ -230,6 +230,10 @@ if not avg_salary_by_major.empty:
 else:
     st.write("No data available to display the average salary by major.")
 
+st.subheader("Salary Distribution by Major")
+# Display the image using its actual size
+st.image("Salary Distribution by Major.png", caption="Salary Distribution by Major")
+
 # Model performance section
 st.header("Model Performance")
 # Assuming you have a test set, you can display the performance metrics
@@ -277,7 +281,7 @@ st.pyplot(fig)
 
 st.subheader("GPA vs Salary")
 # Display the image using its actual size
-st.image("GPA vs Salary.png", caption="Correlation Heatmap")
+st.image("GPA vs Salary.png", caption="GPA vs Salary")
 
 
 
