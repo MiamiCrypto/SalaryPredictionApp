@@ -88,9 +88,8 @@ col1, col2, col3= st.columns(3)
 # Display the image smaller and centered
 
 with col2:
-
-# Display the image smaller and centered
-st.image("salarycrystalball.png", width=700, caption="Predict your future Salary")
+    # Display the image smaller and centered
+    st.image("salarycrystalball.png", width=700, caption="Predict your future Salary")
 
 # Input fields for the features
 input_data = {}
