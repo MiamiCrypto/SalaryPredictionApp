@@ -264,7 +264,7 @@ st.pyplot(fig)
 
 st.subheader("Skills Distribution Word Cloud")
 # Display the image using its actual size
-st.image("Skills Distribution Word Cloud.png", caption="")
+st.image("Skills Frequency Word Cloud.png", caption="")
 
 ############################################################
 
