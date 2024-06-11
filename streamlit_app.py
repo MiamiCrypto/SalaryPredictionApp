@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 
 # Set the page configuration
-st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Salary Prediction Dashboard", page_icon="💼", layout="centered", initial_sidebar_state="collapsed")
 
 # # Custom CSS for dark mode
 # dark_mode_css = """
@@ -84,12 +84,13 @@ st.markdown("<h3 style='text-align: center; font-weight: normal;'>Fill in the fe
 #st.title("Salary Prediction Dashboard")
 #st.header("<h1 style='text-align: center; color: ; '>Enter the values for the following features to predict the salary</h1>", unsafe_allow_html=True)
 
-col1, col2, col3= st.columns(3)
+#col1, col2, col3= st.columns(3)
 # Display the image smaller and centered
 
-with col2:
-    # Display the image smaller and centered
-    st.image("salarycrystalball.png", width=700, caption="Predict your future Salary")
+#with col2:
+
+# Display the image smaller and centered
+st.image("salarycrystalball.png", width=700, caption="Predict your future Salary")
 
 # Input fields for the features
 input_data = {}
@@ -176,7 +177,7 @@ st.header("Sample Data")
 st.write(students_data.head())
 
 # Visualizing Major Distribution and GPA Distribution side by side
-st.header("Distribution of Majors and GPA")
+#st.header("Distribution of Majors and GPA")
 
 col1, col2 = st.columns(2)
 
@@ -198,31 +199,32 @@ with col2:
     ax.set_ylabel('Frequency')
     st.pyplot(fig)
 
-col1, col2 = st.columns(2)
+#col1, col2 = st.columns(2)
 
-with col1:
-    st.subheader("Salary Distribution by Major")
-    # Display the image using its actual size
-    st.image("Salary Distribution by Major.png", caption="")
-with col2:
-    st.subheader("GPA vs Salary")
-    # Display the image using its actual size
-    st.image("GPA vs Salary.png", width = 650, caption="")
+#with col1:
+st.subheader("Salary Distribution by Major")
+# Display the image using its actual size
+st.image("Salary Distribution by Major.png", caption="")
 
-col1, col2 = st.columns(2)
-with col1:
+#with col2:
+st.subheader("GPA vs Salary")
+# Display the image using its actual size
+st.image("GPA vs Salary.png", width = 650, caption="")
+
+#col1, col2 = st.columns(2)
+#with col1:
     
-    # Correlation heatmap for top features
-    st.subheader("Correlation Heatmap of Top Features")
-    corr_matrix = students_data.corr()
-    top_features = corr_matrix['Salary'].abs().sort_values(ascending=False).head(10).index
-    top_corr = students_data[top_features].corr()
+# Correlation heatmap for top features
+st.subheader("Correlation Heatmap of Top Features")
+corr_matrix = students_data.corr()
+top_features = corr_matrix['Salary'].abs().sort_values(ascending=False).head(10).index
+top_corr = students_data[top_features].corr()
     
-with col2:
-    fig, ax = plt.subplots(figsize=(12, 10))
-    sns.heatmap(top_corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
-    ax.set_title('Correlation Heatmap of Top Features')
-    st.pyplot(fig)
+#with col2:
+fig, ax = plt.subplots(figsize=(12, 10))
+sns.heatmap(top_corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
+ax.set_title('Correlation Heatmap of Top Features')
+st.pyplot(fig)
 
 # Display the image using its actual size
 st.image("Correlation Heatmap.png", caption="")
@@ -231,19 +233,17 @@ st.subheader("Skills Distribution by Major")
 # Display the image using its actual size
 st.image("Skills Distribution by Major.png", caption="")
 
-col1, col2 = st.columns(2)
 
-with col1:
-    # Number of skills by major
-    st.subheader("Number of Skills by Major")
-    fig, ax = plt.subplots(figsize=(12, 6))
-    sns.countplot(y='Major', data=students_data, palette='viridis', ax=ax)
-    ax.set_title('Number of Skills by Major')
-    ax.set_xlabel('Count')
-    ax.set_ylabel('Major')
-    st.pyplot(fig)
-with col2:
-    st.subheader("Skills Distribution Word Cloud")
-    # Display the image using its actual size
-    st.image("Skills Frequency Word Cloud.png", caption="")
+# Number of skills by major
+st.subheader("Number of Skills by Major")
+fig, ax = plt.subplots(figsize=(12, 6))
+sns.countplot(y='Major', data=students_data, palette='viridis', ax=ax)
+ax.set_title('Number of Skills by Major')
+ax.set_xlabel('Count')
+ax.set_ylabel('Major')
+st.pyplot(fig)
+
+st.subheader("Skills Distribution Word Cloud")
+# Display the image using its actual size
+st.image("Skills Frequency Word Cloud.png", caption="")
 
