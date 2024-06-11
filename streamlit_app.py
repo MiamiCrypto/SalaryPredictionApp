@@ -11,6 +11,27 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 # Set the page configuration
 st.set_page_config(page_title="Fortune Teller", page_icon="💼", layout="centered", initial_sidebar_state="collapsed")
 
+# Custom HTML and CSS for the text box with light blue background color
+text_box_html = """
+<div style="background-color: #e6f2ff; padding: 20px; border-radius: 10px; width: 100%;">
+    <h2 style="text-align: center; color: #333333;">Fortune Teller</h2>
+    <p style="text-align: center; color: #333333;">
+        My company, WageWizard, is developing a predictive salary analysis platform to help tech industry professionals forecast their future earnings with advanced machine learning algorithms.<br><br>
+        We compete in the growing salary prediction market, which last year was a $2 billion value market.<br><br>
+        We are similar to Payscale and Glassdoor, but we provide more accurate predictions by incorporating a comprehensive set of skills and educational background data.<br><br>
+        Currently, we have a fully functional predictive model, an interactive dashboard, and a growing user base.<br><br>
+        We are looking for funding and strategic partnerships to help us expand our data sources, enhance model accuracy, and scale our platform.
+    </p>
+</div>
+"""
+
+# Display the custom text box
+st.markdown(text_box_html, unsafe_allow_html=True)
+
+# Example content
+st.header("Example Content")
+st.write("This is an example of how to add a text box with a custom background color in Streamlit.")
+
 # # Custom CSS for dark mode
 # dark_mode_css = """
 #     <style>
