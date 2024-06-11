@@ -225,6 +225,10 @@ st.subheader("Salary Distribution by Major")
 # Display the image using its actual size
 st.image("Salary Distribution by Major.png", caption="")
 
+st.subheader("GPA vs Salary")
+# Display the image using its actual size
+st.image("GPA vs Salary.png", caption="")
+
 ############################################################################
 # This part is for the presentation
 
@@ -259,10 +263,6 @@ ax.set_ylabel('Major')
 st.pyplot(fig)
 
 ############################################################
-
-st.subheader("GPA vs Salary")
-# Display the image using its actual size
-st.image("GPA vs Salary.png", caption="")
 
 
 
