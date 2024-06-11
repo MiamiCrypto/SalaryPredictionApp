@@ -248,7 +248,7 @@ st.write(f"F1 Score: {f1:.2f}")
 
 # Technical Architecture
 st.header("Technical Architecture")
-st.image("architecture_diagram.png", caption="Project Technical Architecture")
+st.image("salaryprediction.png", caption="Project Technical Architecture")
 
 # Demo Section
 st.header("Demo of Findings and Insights")
