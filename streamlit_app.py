@@ -276,16 +276,20 @@ st.pyplot(fig)
 
 ############################################################
 
-# Define the skills list (update based on actual available skills in your dataset)
-available_skills = [col for col in students_data.columns if col not in ['Student_ID', 'First_Name', 'Last_Name', 'Email', 'Major', 'GPA', 'Graduated', 'Salary', 'Salary_Binned', 'Salary_Range']]
+# Assuming the `students_data` DataFrame is already loaded and processed
 
-# Calculate the number of skills
-students_data['Number_of_Skills'] = students_data[available_skills].sum(axis=1)
+# Define the list of skills
+skills = ['Coding Skills', 'Machine Learning', 'App Dev', 'Backend', 'Problem Solving', 'Budget Management', 
+          'Business Understanding', 'Data Science', 'Decision Making', 'Improvement', 'Data Driven Decision Making']
+
+# Calculate the number of skills for each student
+students_data['Number_of_Skills'] = students_data[skills].sum(axis=1)
 
 # Calculate the average number of skills by major
 avg_skills_by_major = students_data.groupby('Major')['Number_of_Skills'].mean().reset_index()
 
 # Plotting the average number of skills by major
+st.header("Average Number of Skills by Major")
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x='Number_of_Skills', y='Major', data=avg_skills_by_major, palette='viridis', ax=ax)
 ax.set_title('Average Number of Skills by Major')
