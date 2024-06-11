@@ -146,19 +146,6 @@ if st.button("Show Feature Importances"):
         'Feature': feature_names,
         'Importance': feature_importances
     })
-    
-    # # Sort the DataFrame by importance
-    # importance_df = importance_df.sort_values(by='Importance', ascending=False)
-    
-    # # Plotting the bar plot
-    # fig, ax = plt.subplots(figsize=(14, 10))
-    # sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis', ax=ax)
-    # ax.set_title('Feature Importances', fontsize=16)
-    # ax.set_xlabel('Importance', fontsize=14)
-    # ax.set_ylabel('Feature', fontsize=14)
-    # ax.tick_params(axis='y', labelsize=12)
-    # ax.tick_params(axis='x', labelsize=12)
-    # st.pyplot(fig)
 
     # Sort the DataFrame by importance and select the top 5 features
     top_importance_df = importance_df.sort_values(by='Importance', ascending=False).head(5)
@@ -171,21 +158,25 @@ if st.button("Show Feature Importances"):
     ax.set_ylabel('Feature')
     st.pyplot(fig)
 
+# Model performance section
+st.header("Model Performance")
+# Assuming you have a test set, you can display the performance metrics
+# Here, we use some dummy values for the metrics
+# Replace these dummy values with actual test data and labels
+accuracy = 0.85
+precision = 0.80
+recall = 0.78
+f1 = 0.79
+st.write(f"Accuracy: {accuracy:.2f}")
+st.write(f"Precision: {precision:.2f}")
+st.write(f"Recall: {recall:.2f}")
+st.write(f"F1 Score: {f1:.2f}")
+
 # Add sections for input data, model parameters, model performance, and prediction results
 
 # Input data section
 st.header("Sample Data")
-# st.write(f"No. of samples: {students_data.shape[0]}")
-# st.write(f"No. of variables: {students_data.shape[1]}")
-# st.write("Sample data:")
 st.write(students_data.head())
-
-# Model parameters section
-# st.header("Model Parameters")
-# st.write("Number of Estimators: 100")
-# st.write("Max Depth: None")
-# st.write("Min Samples Split: 2")
-# st.write("Min Samples Leaf: 1")
 
 # Visualizing Major Distribution and GPA Distribution side by side
 st.header("Distribution of Majors and GPA")
@@ -233,20 +224,6 @@ else:
 st.subheader("Salary Distribution by Major")
 # Display the image using its actual size
 st.image("Salary Distribution by Major.png", caption="Salary Distribution by Major")
-
-# Model performance section
-st.header("Model Performance")
-# Assuming you have a test set, you can display the performance metrics
-# Here, we use some dummy values for the metrics
-# Replace these dummy values with actual test data and labels
-accuracy = 0.85
-precision = 0.80
-recall = 0.78
-f1 = 0.79
-st.write(f"Accuracy: {accuracy:.2f}")
-st.write(f"Precision: {precision:.2f}")
-st.write(f"Recall: {recall:.2f}")
-st.write(f"F1 Score: {f1:.2f}")
 
 ############################################################################
 # This part is for the presentation
