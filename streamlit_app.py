@@ -223,7 +223,7 @@ with col2:
 
 st.subheader("Salary Distribution by Major")
 # Display the image using its actual size
-st.image("Salary Distribution by Major.png", caption="Salary Distribution by Major")
+st.image("Salary Distribution by Major.png", caption="")
 
 ############################################################################
 # This part is for the presentation
@@ -258,7 +258,11 @@ st.pyplot(fig)
 
 st.subheader("GPA vs Salary")
 # Display the image using its actual size
-st.image("GPA vs Salary.png", caption="GPA vs Salary")
+st.image("GPA vs Salary.png", caption="")
+
+st.subheader("Skills Distribution by Major")
+# Display the image using its actual size
+st.image("Skills Distribution by Major.png", caption="")
 
 
 
