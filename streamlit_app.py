@@ -231,7 +231,7 @@ st.image("Correlation Heatmap.png", caption="")
 st.subheader("Skills Frequency Word Cloud")
 # Description text
 description_text = """
-<div style='font-size:12px;'>
+<div style='text-align: center; font-size:12px;'>
 Highlights the most prevalent skills in the dataset, such as Collaboration and Presentation Skills.
 <div>
 """
