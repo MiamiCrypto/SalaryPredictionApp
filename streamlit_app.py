@@ -89,7 +89,7 @@ col1, col2, col3= st.columns(3)
 
 with col2:
     st.image("salarycrystalball.png", width=300, caption="Predict your future Salary")
-    #st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # Display the image smaller and centered
 #st.image("salaryprediction.png", width=300, caption="Predict your future Salary")
