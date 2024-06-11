@@ -11,8 +11,22 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 # Set the page configuration
 st.set_page_config(page_title="Fortune Teller", page_icon="💼", layout="centered", initial_sidebar_state="collapsed")
 
-# Display the custom text box
-st.markdown(text_box_html, unsafe_allow_html=True)
+# # Custom CSS for dark mode
+# dark_mode_css = """
+#     <style>
+#     body, .stApp {
+#         background-color: #0e1117;
+#         color: #ffffff;
+#     }
+#     .css-1d391kg, .css-1nv0d2y, .css-1v3fvcr, .css-2trqyj, .css-12oz5g7, .css-1lypyze, .css-1rs6os, .css-1vbkxwb, .css-1grh8ro {
+#         color: #ffffff;
+#     }
+#     .css-1d3w5w1, .css-1pxd2dn, .css-1a32fsj, .css-1hfz7xv, .css-1l5zk5j, .css-18ni7ap, .css-1cpxqw2 {
+#         background-color: #0e1117;
+#     }
+#     </style>
+# """
+# st.markdown(dark_mode_css, unsafe_allow_html=True)
 
 # Custom CSS to hide the "Made with Streamlit" watermark
 hide_streamlit_style = """
@@ -67,6 +81,8 @@ major_mapping = {0: 'Applied Artificial Intelligence', 1: 'Data Analytics'}
 # Streamlit UI
 st.markdown("<h1 style='text-align: center; color: ;'>Fortune Teller</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center; font-weight: normal;'>Crystal Clear Salary Forecast</h3>", unsafe_allow_html=True)
+#st.title("Salary Prediction Dashboard")
+#st.header("<h1 style='text-align: center; color: ; '>Enter the values for the following features to predict the salary</h1>", unsafe_allow_html=True)
 
 #col1, col2, col3= st.columns(3)
 # Display the image smaller and centered
@@ -255,6 +271,4 @@ ax.set_title('It indicates that Applied Artificial Intelligence students tend to
 ax.set_xlabel('Count')
 ax.set_ylabel('Major')
 st.pyplot(fig)
-
-
 
