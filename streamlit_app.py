@@ -194,7 +194,7 @@ with col2:
     st.subheader("Distribution of GPA")
     fig, ax = plt.subplots()
     sns.histplot(students_data['GPA'], bins=10, kde=True, ax=ax)
-    ax.set_title('Distribution of GPA')
+    ax.set_title('')
     ax.set_xlabel('GPA')
     ax.set_ylabel('Frequency')
     st.pyplot(fig)
