@@ -92,7 +92,7 @@ st.markdown("<h3 style='text-align: center; font-weight: normal;'>Fill in the fe
 # #st.markdown("</div>", unsafe_allow_html=True)
 
 # Display the image smaller and centered
-st.image("salarycrystalball.png", width=300, caption="Predict your future Salary")
+st.image("salarycrystalball.png", width=800, caption="Predict your future Salary")
 
 # Input fields for the features
 input_data = {}
