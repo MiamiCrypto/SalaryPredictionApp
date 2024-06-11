@@ -261,6 +261,9 @@ sns.heatmap(top_corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
 ax.set_title('Correlation Heatmap of Top Features')
 st.pyplot(fig)
 
+# Display the image using its actual size
+st.image("Correlation Heatmap.png", caption="Correlation Heatmap")
+
 # Number of skills by major
 st.subheader("Number of Skills by Major")
 fig, ax = plt.subplots(figsize=(12, 6))
@@ -272,17 +275,9 @@ st.pyplot(fig)
 
 ############################################################
 
-# col1, col2, col3= st.columns(3)
-# # Display the image smaller and centered
-
-# with col2:
-#     st.image("salarycrystalball.png", width=300, caption="Predict your future Salary")
-
-
-#st.image("Correlation Heatmap.png", width=True, caption="Predict your future Salary")
-
+st.subheader("GPA vs Salary")
 # Display the image using its actual size
-st.image("Correlation Heatmap.png", caption="Correlation Heatmap")
+st.image("GPA vs Salary.png", caption="Correlation Heatmap")
 
 
 
