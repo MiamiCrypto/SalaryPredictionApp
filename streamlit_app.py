@@ -204,26 +204,25 @@ with col2:
 #with col1:
 st.subheader("Salary Distribution by Major")
 # Display the image using its actual size
-st.image("Salary Distribution by Major.png", caption="")
+st.image("Salary Distribution by Major.png", caption="Applied Artificial Intelligence shows a higher median salary compared to Data Analytics.")
 
 #with col2:
 st.subheader("GPA vs Salary")
 # Display the image using its actual size
-st.image("GPA vs Salary.png", width = 650, caption="")
+st.image("GPA vs Salary.png", width = 650, caption="Indicating that higher GPAs generally correlate with higher salaries.")
 
 #col1, col2 = st.columns(2)
 #with col1:
     
 # Correlation heatmap for top features
-st.subheader("Correlation Heatmap of Top Features")
+st.subheader("Correlation Heatmap for Top Features")
 corr_matrix = students_data.corr()
 top_features = corr_matrix['Salary'].abs().sort_values(ascending=False).head(10).index
 top_corr = students_data[top_features].corr()
     
-#with col2:
 fig, ax = plt.subplots(figsize=(12, 10))
 sns.heatmap(top_corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
-ax.set_title('Correlation Heatmap of Top Features')
+ax.set_title('High correlations between certain skills and salary suggest their significant impact on salary prediction.')
 st.pyplot(fig)
 
 # Display the image using its actual size
@@ -231,11 +230,11 @@ st.image("Correlation Heatmap.png", caption="")
 
 st.subheader("Skills Distribution Word Cloud")
 # Display the image using its actual size
-st.image("Skills Frequency Word Cloud.png", caption="")
+st.image("Skills Frequency Word Cloud.png", caption="This word cloud visualizes the frequency of different skills among students, with larger words indicating more common skills. It highlights the most prevalent skills in the dataset, such as Collaboration and Presentation Skills")
 
 st.subheader("Skills Distribution by Major")
 # Display the image using its actual size
-st.image("Skills Distribution by Major.png", caption="")
+st.image("Skills Distribution by Major.png", caption="Highlights the prevalence of specific skills in each major, indicating areas of strength.")
 
 
 # Number of skills by major
