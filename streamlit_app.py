@@ -76,20 +76,6 @@ st.markdown("<h3 style='text-align: center; font-weight: normal;'>Crystal Clear 
 # Display the image smaller and centered
 st.image("salarycrystalball.png", width=700, caption="")
 
-# # Custom HTML and CSS for the text box with light blue background color
-# text_box_html = """
-# <div style="background-color: #e6f2ff; padding: 20px; border-radius: 10px; width: 100%;">
-#     <h2 style="text-align: center; color: #333333;">About us</h2>
-#     <p style="text-align: center; color: #333333;">
-#         Our company, WageWizard, is developing a predictive salary analysis platform to help tech industry professionals forecast their future earnings with advanced machine learning algorithms.<br><br>
-#         We compete in the growing salary prediction market, which last year was a $2 billion value market.<br><br>
-#         We are similar to Payscale and Glassdoor, but we provide more accurate predictions by incorporating a comprehensive set of skills and educational background data.<br><br>
-#         Currently, we have a fully functional predictive model, an interactive dashboard, and a growing user base.<br><br>
-#         We are looking for funding and strategic partnerships to help us expand our data sources, enhance model accuracy, and scale our platform.
-#     </p>
-# </div>
-# """
-
 # Input fields for the features
 input_data = {}
 
