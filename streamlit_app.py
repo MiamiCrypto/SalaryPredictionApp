@@ -235,7 +235,7 @@ description_text = """
 Highlights the most prevalent skills in the dataset, such as Collaboration and Presentation Skills.
 <div>
 """
-st.markdown(description_text)
+st.markdown(description_text, unsafe_allow_html=True)
 # Display the image using its actual size
 st.image("Skills Frequency Word Cloud.png", caption="")
 
