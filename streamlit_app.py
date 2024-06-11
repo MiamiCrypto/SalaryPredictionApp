@@ -247,10 +247,6 @@ st.write(f"F1 Score: {f1:.2f}")
 ############################################################################
 # This part is for the presentation
 
-# Technical Architecture
-st.header("Technical Architecture")
-st.image("salaryprediction.png", caption="Project Technical Architecture")
-
 # Additional Visualizations
 st.header("Additional Visualizations")
 
@@ -276,7 +272,14 @@ st.pyplot(fig)
 
 ############################################################
 
+# col1, col2, col3= st.columns(3)
+# # Display the image smaller and centered
 
+# with col2:
+#     st.image("salarycrystalball.png", width=300, caption="Predict your future Salary")
+
+
+st.image("Correlation Heatmap.png", width=300, caption="Predict your future Salary")
 
 
 
