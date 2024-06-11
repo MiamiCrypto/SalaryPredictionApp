@@ -274,34 +274,24 @@ ax.set_xlabel('Count')
 ax.set_ylabel('Major')
 st.pyplot(fig)
 
-# Define the skills list
-skills = [
-    'Coding Skills', 'Machine Learning', 'App Dev', 'Backend', 
-    'Creativity', 'Presentation Skills', 'Problem Solving', 
-    'Budget Management', 'Business Understanding', 'Collaboration', 
-    'Data Science', 'Decision Making', 'Improvement', 
-    'Data Driven Decision Making', 'Attention to Detail', 
-    'Programming Languages'
-]
+############################################################
 
-# Check if all skills columns are in the DataFrame
-missing_skills = [skill for skill in skills if skill not in students_data.columns]
-if missing_skills:
-    st.error(f"Missing skill columns in the dataset: {missing_skills}")
-else:
-    # Calculate the number of skills
-    students_data['Number_of_Skills'] = students_data[skills].sum(axis=1)
+# Define the skills list (update based on actual available skills in your dataset)
+available_skills = [col for col in students_data.columns if col not in ['Student_ID', 'First_Name', 'Last_Name', 'Email', 'Major', 'GPA', 'Graduated', 'Salary', 'Salary_Binned', 'Salary_Range']]
 
-    # Calculate the average number of skills by major
-    avg_skills_by_major = students_data.groupby('Major')['Number_of_Skills'].mean().reset_index()
-    
-    # Plotting the average number of skills by major
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(x='Number_of_Skills', y='Major', data=avg_skills_by_major, palette='viridis', ax=ax)
-    ax.set_title('Average Number of Skills by Major')
-    ax.set_xlabel('Average Number of Skills')
-    ax.set_ylabel('Major')
-    st.pyplot(fig)
+# Calculate the number of skills
+students_data['Number_of_Skills'] = students_data[available_skills].sum(axis=1)
+
+# Calculate the average number of skills by major
+avg_skills_by_major = students_data.groupby('Major')['Number_of_Skills'].mean().reset_index()
+
+# Plotting the average number of skills by major
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.barplot(x='Number_of_Skills', y='Major', data=avg_skills_by_major, palette='viridis', ax=ax)
+ax.set_title('Average Number of Skills by Major')
+ax.set_xlabel('Average Number of Skills')
+ax.set_ylabel('Major')
+st.pyplot(fig)
 
 
 
