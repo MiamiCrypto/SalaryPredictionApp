@@ -279,7 +279,10 @@ st.pyplot(fig)
 #     st.image("salarycrystalball.png", width=300, caption="Predict your future Salary")
 
 
-st.image("Correlation Heatmap.png", width=True, caption="Predict your future Salary")
+#st.image("Correlation Heatmap.png", width=True, caption="Predict your future Salary")
+
+# Display the image using its actual size
+st.image("Correlation Heatmap.png", caption="Correlation Heatmap")
 
 
 
