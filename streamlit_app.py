@@ -157,18 +157,18 @@ if st.button("Show Feature Importances"):
     st.pyplot(fig)
 
 # Model performance section
-st.header("Model Performance")
-# Assuming you have a test set, you can display the performance metrics
-# Here, we use some dummy values for the metrics
-# Replace these dummy values with actual test data and labels
-accuracy = 0.85
-precision = 0.80
-recall = 0.78
-f1 = 0.79
-st.write(f"Accuracy: {accuracy:.2f}")
-st.write(f"Precision: {precision:.2f}")
-st.write(f"Recall: {recall:.2f}")
-st.write(f"F1 Score: {f1:.2f}")
+# st.header("Model Performance")
+# # Assuming you have a test set, you can display the performance metrics
+# # Here, we use some dummy values for the metrics
+# # Replace these dummy values with actual test data and labels
+# accuracy = 0.85
+# precision = 0.80
+# recall = 0.78
+# f1 = 0.79
+# st.write(f"Accuracy: {accuracy:.2f}")
+# st.write(f"Precision: {precision:.2f}")
+# st.write(f"Recall: {recall:.2f}")
+# st.write(f"F1 Score: {f1:.2f}")
 
 # Add sections for input data, model parameters, model performance, and prediction results
 
